@@ -1,0 +1,185 @@
+<template>
+  <div class="search-box-wrapper" style="margin-top: -160px;">
+
+    <div class="rounded-xl bg-white shadow-md p-8 md:p-12 md:max-w-xl mx-auto mb-16 mt-20 md:mt-0">
+      <h2 class="text-gray-700 lg:text-2xl mb-8 md:mb-12 mx-auto font-medium text-center">Search for residences</h2>
+      
+      <!-- Location Button -->
+      <div class="flex items-center justify-center mb-4 md:mb-6"> 
+        <button @click="submit" class="location-button p-3 md:p-4 rounded-xl bg-white border border-gray-300 hover:bg-white flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 2a5 5 0 00-5 5c0 3.866 5 10 5 10s5-6.134 5-10a5 5 0 00-5-5zm0 7a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+          </svg>
+        
+        </button>
+      </div>
+
+      <!-- "Or" Text with Gray Lines -->
+      <div class="flex items-center justify-center mb-4 md:mb-6">
+        <div class="w-1/4 md:w-1/5 border-t border-gray-300"></div>
+        <div class="mx-4 text-gray-400">or</div>
+        <div class="w-1/4 md:w-1/5 border-t border-gray-300"></div>
+      </div>
+
+      <!-- Search Input -->
+      <div class="mb-4 md:mb-6">
+        <input type="text" class="search-input p-3 md:p-4" placeholder="Enter your search...">
+        <span class="search-icon">
+        </span>
+      </div>
+
+      <!-- Campus Selection -->
+      <div class="mb-4 md:mb-6">
+        <select class="select-input p-3 md:p-4">
+          <option value="" disabled selected>Select Campus</option>
+          <option value="mafikeng">Mafikeng</option>
+          <option value="vanderbijlpark">Vanderbijlpark</option>
+          <option value="potchefstroom">Potchefstroom</option>
+        </select>
+      </div>
+
+      <!-- Loading Animation -->
+      <div v-if="loading" class="loading-overlay">
+        <div class="loader"></div>
+      </div>
+
+      <!-- Submit Button -->
+      <button @click="submit" :disabled="loading" class="submit-button mt-10 p-6 md:p-4 w-full">
+        {{ loading ? 'Loading...' : 'Submit Search' }}
+      </button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'SearchBox',
+  data() {
+    return {
+      loading: false
+    };
+  },
+  methods: {
+    submit() {
+      // Simulate loading for 2 seconds
+      this.loading = true;
+      setTimeout(() => {
+        this.loading = false;
+      }, 2000);
+    }
+  }
+}
+</script>
+
+<style scoped>
+.search-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 0.5rem;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #9CA3AF;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+}
+
+.select-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 0.5rem;
+  width: 100%;
+  appearance: none;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.5rem;
+}
+
+.select-input:focus {
+  outline: none;
+  border-color: #9CA3AF;
+}
+
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.submit-button {
+  background-color: #4B5563;
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #2D3748;
+}
+
+.location-button {
+  width: 80px;
+  height: 60px;
+}
+
+.location-button:hover {
+  border: 1px solid indigo;
+}
+
+/* Loader animation */
+.loader {
+  border-top-color: transparent !important;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.search-box-wrapper {
+  width: calc(100% - 50px); /* Adjust as needed */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: calc(100% - 50px);
+}
+
+@media (max-width: 640px) {
+  .search-box-wrapper {
+    margin-top: -100px; /* Adjust as needed */
+  }
+}
+</style>
