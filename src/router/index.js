@@ -6,6 +6,7 @@ import InnovationView from '../views/InnovationView.vue'
 import APIView from '../views/APIView.vue'
 import TechnologyView from '../views/TechnologyView.vue'
 import SignupView from '../views/SignupView.vue'
+import ResultDetailsView from '../views/ResultDetailsView.vue'
 
 const routes = [
   {
@@ -42,6 +43,11 @@ const routes = [
     path: '/signup',
     name: 'signup',
     component: SignupView
+  },
+  {
+    path: '/details',
+    name: 'details',
+    component: ResultDetailsView
   }
 ]
 

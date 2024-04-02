@@ -1,13 +1,13 @@
 <template>
   <div class="home">
+  <HomeNavBar />
   <Hero />
-  <Searchbox />
+ 
+  <Searchbox @search-submitted="showResults = true" />
 
-<SearchResults />
-<SearchResults />
-<SearchResults />
-
-
+  <SearchResults v-if="showResults" />
+  <SearchResults v-if="showResults" />
+  <SearchResults v-if="showResults" />
 
  <FeaturedResidancesMaf />
  <FeaturedResidancesPotch/>
@@ -24,11 +24,17 @@ import FeaturedResidancesPotch from '@/components/FeaturedResidancesPotch.vue'
 import FeaturedResidancesVaal from '@/components/FeaturedResidancesVaal.vue'
 import SearchResults from '@/components/SearchResults.vue'
 import Searchbox from '@/components/Searchbox.vue'
+import HomeNavBar from '@/components/HomeNavBar.vue'
 
 export default {
   name: 'HomeView',
   components: {
-      Hero, FeaturedResidancesMaf, Searchbox, FeaturedResidancesPotch, FeaturedResidancesVaal, SearchResults
+    HomeNavBar, Hero, FeaturedResidancesMaf, Searchbox, FeaturedResidancesPotch, FeaturedResidancesVaal, SearchResults
+  },
+  data() {
+    return {
+      showResults: false
+    }
   }
 }
 </script>

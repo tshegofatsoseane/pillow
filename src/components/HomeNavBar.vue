@@ -1,6 +1,6 @@
 <template>
-    <nav class=" fixed top-0 w-full bg-white border-b border-indigo-200 text-black  ">
-        <div class="container my-6 mx-auto px-4 flex justify-between items-center my-1">
+    <nav :class="{ 'fixed top-0 w-full bg-white border-b border-indigo-200': isScrolled, 'text-black': isScrolled, 'py-1': !isScrolled, 'py-1': isScrolled }" class="fixed  text-white top-0 w-full font-bold z-20" :style="{ transition: isScrolled ? 'background-color 2s, color 0.5s' : 'none' }">
+        <div class="container my-6 mx-auto px-4 flex justify-between items-center" :class="{ 'my-1'  :isScrolled }">
             <!-- Logo -->
  <div class="flex items-center ml-6">
   <img src="@/assets/logo.png" alt="Pillow Logo" class="h-8 w-auto mr-2">

@@ -48,7 +48,9 @@
         {{ loading ? 'Loading...' : 'Submit Search' }}
       </button>
     </div>
+    <h1 class="font-semibold">Showing results for ""</h1>
   </div>
+
 </template>
 
 <script>
@@ -56,17 +58,26 @@ export default {
   name: 'SearchBox',
   data() {
     return {
-      loading: false
+      loading: false,
+     
     };
   },
   methods: {
     submit() {
-      // Simulate loading for 2 seconds
-      this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 2000);
-    }
+  // Simulate loading for 2 seconds
+  this.loading = true;
+  setTimeout(() => {
+    this.loading = false;
+    this.showResults = true;
+    this.$emit('search-submitted');
+
+    // Scroll to the top of the page
+    window.scrollTo({
+      top: 850,
+      behavior: 'smooth' // Optional: smooth scrolling effect
+    });
+  }, 2000);
+}
   }
 }
 </script>
