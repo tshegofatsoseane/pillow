@@ -31,11 +31,13 @@
       DetailBox
     },
     mounted() {
+      // Scroll to top when the component is mounted
       this.scrollToTop();
     },
     methods: {
       scrollToTop() {
-        this.$refs.homeView.scrollTo({
+        // Scroll to the top of the page
+        window.scrollTo({
           top: 0,
           behavior: 'smooth'
         });
@@ -43,11 +45,12 @@
       goBack() {
         // Implement logic to go back to the previous page or route
         // For example, if you're using Vue Router, you can use router.go(-1)
-         this.$router.go(-1);
+        this.$router.go(-1);
       }
     }
   }
   </script>
+  
   
   <style scoped>
   .home-view {

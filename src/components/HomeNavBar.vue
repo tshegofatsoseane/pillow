@@ -18,14 +18,24 @@
             <!-- Navigation Links -->
             <div :class="{ 'hidden': !showMenu, 'lg:flex': showMenu }" class="lg:flex hover:border-white">
                 <router-link to="/" class="px-4 py-4 transition duration-700 ease-in-out hover:text-blue-500 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.path === '/', 'text-gray-500 border-indigo-500': isScrolled }">Home</router-link>
-                <router-link :to="{ name: 'explore' }" class="px-4 py-4 transition duration-300 ease-in-out hover:text-blue-500 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.name === 'explore', 'text-gray-500 border-indigo-400': isScrolled }">Accommodations</router-link>
-                <router-link :to="{ name: 'innovation' }" class="px-4 py-4 transition duration-300 ease-in-out hover:text-blue-500 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.name === 'innovation', 'text-gray-500 border-indigo-400': isScrolled }">Reviews & Ratings</router-link>
+                <router-link :to="{ name: 'innovation' }" class="px-4 py-4 transition duration-300 ease-in-out hover:text-blue-500 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.name === 'innovation', 'text-gray-500 border-indigo-400': isScrolled }">For Landlords</router-link>
             </div>
 
-            <!-- Action Buttons -->
-            <div class="mr-12 flex items-center"> <!-- Modified this line -->
-                <button class="bg-gradient-to-r from-indigo-600/90 to-pink-800/50 hover:bg-indigo-600/60 text-white font-semibold py-2 px-6 rounded transition duration-300 ease-in-out">Landlords</button>
-            </div>
+<!-- Action Buttons -->
+<div class="mr-12 flex items-center space-x-4"> <!-- Modified this line -->
+    <router-link :to="{ name: 'innovation' }" 
+             class="border font-semibold py-2 px-6 rounded transition duration-300 ease-in-out hover:text-indigo-500 hover:border-blue-500"
+             :class="{ 'border-white': !isScrolled, 
+                        'border-black': isScrolled,
+                        'text-white': !isScrolled,
+                        'text-indigo-500': isScrolled }">
+    Login
+</router-link>
+<router-link :to="{ name: 'signup' }"  class="bg-gradient-to-r from-indigo-600/90 to-pink-800/50 hover:bg-indigo-600/60 text-white font-semibold py-2 px-6 rounded transition duration-300 ease-in-out">Signup</router-link>
+</div>
+
+
+            
         </div>
     </nav>
 </template>

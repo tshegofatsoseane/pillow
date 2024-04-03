@@ -24,7 +24,9 @@
               <!-- Loading State Skeleton for Description -->
               <div class="mb-4">
                 <div class="h-6 w-full bg-gray-300 rounded-full"></div>
+                <br>
                 <div class="h-6 w-5/6 bg-gray-300 rounded-full"></div>
+                <br>
                 <div class="h-6 w-3/4 bg-gray-300 rounded-full"></div>
               </div>
               <!-- Loading State Skeleton for Read more and Author section -->
@@ -89,11 +91,11 @@
       };
     },
     mounted() {
-      // After 5 seconds, hide the skeleton
-      setTimeout(() => {
-        this.showSkeleton = false;
-      }, 3000);
+        setTimeout(() => {
+            this.showSkeleton = false;
+        }, 3000)
     }
+
   };
   </script>
   

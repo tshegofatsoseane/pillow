@@ -3,8 +3,11 @@
     <!-- Large box with gray background and rounded corners -->
     <div class="flex flex-col md:flex-row">
       <!-- Image container -->
-      <div class="bg-gray-100 w-full md:w-98 h-96 rounded-3xl flex items-center justify-center" >
-          <img src="https://helium.privateproperty.co.za/live-za-images/property/275/38/10176275/images/property-10176275-64564482_e.jpg" alt="Author Photo" class="object-cover w-full h-full rounded-2xl" >
+    
+      <div class="bg-gray-100 w-full md:w-98 h-96 rounded-3xl flex items-center justify-center " >
+    
+          <img src="https://helium.privateproperty.co.za/live-za-images/property/275/38/10176275/images/property-10176275-64564482_e.jpg" alt="Author Photo" class="object-cover w-full h-full rounded-2xl " >
+          
         </div>
 
 
@@ -17,10 +20,16 @@
             <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-indigo-500 rounded-full">Accredited</span>
             <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-indigo-500 rounded-full">Tag #3</span>
           </div>
+         <!-- Ratings section -->
+         <div class="flex items-center mt-4 ">
+            <span class="text-xl font-semibold text-yellow-500">★★★★★</span>
+            <span class="ml-2 text-gray-600">(25 Reviews)</span>
+          </div>
           <!-- Title -->
           <div class=" text-left">
             <h2 class="text-2xl pb-4 font-bold text-black ">SedibengVille</h2>
           </div>
+
           <!-- Description -->
           <div class="text-left">
             <h1 class=" font-medium mb-1 text-black"> Univeristy Drive, Unit 5, Mafikeng</h1>
@@ -81,11 +90,7 @@
             </button>
           </form>
 
-          <!-- Ratings section -->
-          <div class="flex items-center mt-4">
-            <span class="text-xl font-semibold text-yellow-500">★★★★★</span>
-            <span class="ml-2 text-gray-600">(25 Reviews)</span>
-          </div>
+
         </div>
       </div>
     </div>

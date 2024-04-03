@@ -30,9 +30,9 @@ const routes = [
     component: InnovationView
   },
   {
-    path: '/api',
-    name: 'api',
-    component: APIView
+    path: '/signup',
+    name: 'signup',
+    component: SignupView
   },
   {
     path: '/technology',
