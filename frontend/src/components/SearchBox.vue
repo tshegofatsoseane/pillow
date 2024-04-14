@@ -39,57 +39,53 @@
       </button>
     </div>
     <h1 class="font-semibold">Showing results for "{{ searchQuery }}"</h1>
+    
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import SearchResults from './SearchResults.vue';
 
 export default {
   name: 'SearchBox',
+  components: {
+    SearchResults
+  },
   data() {
     return {
       loading: false,
       searchQuery: '',
-      searchResults: [] // Initialize an empty array to store search results
+      searchResults: [] // Add a property to store search results
     };
   },
   methods: {
     async submit() {
-      // Set loading state to true
       this.loading = true;
-
       try {
-        // Make API call to fetch search results based on searchQuery
         const response = await axios.get('http://127.0.0.1:8000/api/accommodations/', {
           params: {
             q: this.searchQuery
           }
         });
-
-        // Set searchResults with the data from the response
-        this.searchResults = response.data;
-        console.log(response.data);
-
-
-        // Emit an event to notify the parent component about the search results
-          this.$emit('search-results-updated',  this.searchResults);
-
-        // Scroll to the top of the page
+        this.searchResults = response.data; // Assign response data to searchResults property
+        // Emit only the search results array to the parent component
+        this.$emit('search-results-updated', this.searchResults);
         window.scrollTo({
           top: 850,
-          behavior: 'smooth' // Optional: smooth scrolling effect
+          behavior: 'smooth'
         });
       } catch (error) {
         console.error('Error fetching search results:', error);
       } finally {
-        // Set loading state to false
         this.loading = false;
       }
     }
   }
 }
 </script>
+
+
 
 <style scoped>
 .search-input {

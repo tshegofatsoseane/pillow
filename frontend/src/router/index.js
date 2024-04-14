@@ -30,9 +30,9 @@ const routes = [
     component: InnovationView
   },
   {
-    path: '/signup',
-    name: 'signup',
-    component: SignupView
+    path: '/api',
+    name: 'api',
+    component: APIView
   },
   {
     path: '/technology',
@@ -45,9 +45,10 @@ const routes = [
     component: SignupView
   },
   {
-    path: '/details',
+    path: '/details/:id', // Include route parameter for details view
     name: 'details',
-    component: ResultDetailsView
+    component: ResultDetailsView,
+    props: true // Pass route params as props to the component
   }
 ]
 

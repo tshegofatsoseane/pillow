@@ -19,6 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('pillow_api.urls')),  # Include URLs from your app
+    path('api/', include('pillow_api.urls')),
+    path('api/', include('users.urls')),
 ]
 

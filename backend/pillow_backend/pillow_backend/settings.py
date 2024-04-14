@@ -16,7 +16,7 @@ from decouple import config
 
 import os
 
-GOOGLE_MAPS_API_KEY = 'AIzaSyD9dGsjV6QwyIZEubLJsdgNe6dldKH-6dU'
+GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY') 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'pillow_api',
     'corsheaders',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'pillow_backend.urls'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
 
 TEMPLATES = [
     {
@@ -87,9 +89,7 @@ REST_FRAMEWORK = {
     )
 }
 
-
 WSGI_APPLICATION = 'pillow_backend.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
