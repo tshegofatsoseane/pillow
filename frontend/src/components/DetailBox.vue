@@ -1,5 +1,5 @@
 <template>
-  <div class="detail-box md:mt-8 mt-14 md:p-6 rounded-lg md:shadow-lg bg-white" style="margin-top: -600px;">
+  <div class="detail-box md:mt-8 mt-14 md:p-6 rounded-lg md:shadow-lg bg-white" style="margin-top: -500px;">
     <!-- Image container -->
     <div class="md:flex">
       <div class="md:w-1/3 h-64 md:h-auto mb-6 md:mb-0 md:mr-6">

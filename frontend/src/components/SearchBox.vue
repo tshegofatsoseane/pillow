@@ -1,7 +1,7 @@
 <template>
   <div class="search-box-wrapper" style="margin-top: -160px;">
 
-    <div class="rounded-xl bg-white shadow-md p-8 md:p-12 md:max-w-xl mx-auto mb-16 mt-20 md:mt-0">
+    <div class="inset-0 bg-white bg-opacity-40 backdrop-blur-xl  rounded-xl shadow-md p-8 md:p-12 md:max-w-xl mx-auto mb-16 mt-20 md:mt-0">
       <h2 class="text-gray-700 lg:text-2xl mb-8 md:mb-12 mx-auto font-medium text-center">Search for residences</h2>
       
       <!-- Location Button -->
@@ -10,7 +10,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10 2a5 5 0 00-5 5c0 3.866 5 10 5 10s5-6.134 5-10a5 5 0 00-5-5zm0 7a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
           </svg>
-        
+      
         </button>
       </div>
 
@@ -175,4 +175,5 @@ export default {
     margin-top: -100px; /* Adjust as needed */
   }
 }
+
 </style>

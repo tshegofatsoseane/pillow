@@ -1,67 +1,77 @@
 <template>
-    <div class="content-wrapper">
-      
-  
-      <div class="text-gray-500 py-14 mb-6 max-w-auto mx-auto" style="z-index: -10;">
-        <div class="text-center ">
-          <h1 class="text-4xl lg:text-4xl font-semibold mb-6 max-w-auto mx-auto">Featured accommodations in Vanderbijlpark</h1>
-          <p hidden class="text-lg lg:text-xl mb-8 mx-auto">Discover comfortable and secure student accommodations near all NWU Campuses.</p>
-  
-          <div class="flex flex-wrap justify-center">
-            <!-- Card 1 -->
-            <div class="z-10 bg-white max-w-md mx-4 my-4 shadow-md rounded-xl relative"> <!-- Increased z-index -->
-              <img class="w-full h-96 object-cover rounded-t-xl" src="https://helium.privateproperty.co.za/live-za-images/property/275/38/10176275/images/property-10176275-64564482_e.jpg" alt="Image">
-              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-900 to-transparent h-80 rounded-b-xl"></div>
-              <div class="absolute bottom-0 left-0 right-100 px-6 pb-6 text-white">
-                <div class="font-bold text-xl right-100" style="margin-right: 105px;">SedibengVille</div>
-                <p class="text-gray-200 text-base">
-                  Univeristy Drive, Unit 5, Mafikeng
-                </p>
-              </div>
-            </div>
-  
-            <!-- Card 2 -->
-            <div class="z-10 bg-white max-w-md mx-4 my-4 shadow-md rounded-xl relative"> <!-- Increased z-index -->
-              <img class="w-full h-96 object-cover rounded-t-xl" src="https://images.prop24.com/314970401/Crop600x400" alt="Image">
-              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-900 to-transparent h-72 rounded-b-xl"></div>
-              <div class="absolute bottom-0 left-0 right-100 px-6 pb-6 text-white">
-                <div class="font-bold text-xl right-100" style="margin-right: 105px;">SedibengVille</div>
-                <p class="text-gray-200 text-base">
-                  Univeristy Drive, Unit 5, Mafikeng
-                </p>
-              </div>
-            </div>
+  <div class="content-wrapper bg-white">
+    <div class="text-gray-500 py-14 mb-1 mx-auto" style="width: 1450px; margin-top: -200px;">
+      <div class="text-center">
+        <h1 class="text-4xl lg:text-4xl font-semibold mb-6 max-w-auto mx-auto">Featured accommodations in Vanderbijlpark</h1>
+        <p hidden class="text-lg lg:text-xl mb-8 mx-auto">Discover comfortable and secure student accommodations near all NWU Campuses.</p>
 
-            <!-- Card 3 -->
-            <div class="z-10 bg-white max-w-md mx-4 my-4 shadow-md rounded-xl relative"> <!-- Increased z-index -->
-              <img class="w-full h-96 object-cover rounded-t-xl" src="https://images.prop24.com/314970401/Crop600x400" alt="Image">
-              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-gray-900 to-transparent h-72 rounded-b-xl"></div>
-              <div class="absolute bottom-0 left-0 right-100 px-6 pb-6 text-white">
-                <div class="font-bold text-xl right-100" style="margin-right: 105px;">SedibengVille</div>
-                <p class="text-gray-200 text-base">
-                  Univeristy Drive, Unit 5, Mafikeng
-                </p>
-              </div>
+        <div v-if="loading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8">
+          <!-- Skeleton card for each accommodation -->
+          <div v-for="index in 4" :key="index" class="bg-white w-80 max-w-2xl mx-auto rounded-xl overflow-hidden animate-pulse">
+            <div class="w-full h-80 bg-gray-200 rounded-xl"></div>
+            <div class="px-1 py-4">
+              <div class="h-8 bg-gray-200 mb-2 rounded-md"></div>
+              <div class="h-4 bg-gray-200 rounded-md"></div>
             </div>
-  
-            <!-- Repeat the structure for the remaining cards -->
-          </div>
+          </div> 
         </div>
+
+        <div v-else-if="accommodations.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-8">
+          <!-- Card for each accommodation -->
+          <div v-for="accommodation in accommodations" :key="accommodation.id" class="bg-white max-w-2xl mx-auto rounded-xl overflow-hidden">
+            <img class="w-full h-80 object-cover rounded-xl" :src="accommodation.image_url" alt="Accommodation Image">
+            <div class="px-1 py-4">
+              <h2 class="text-xl font-semibold mb-2 text-left text-black">{{ accommodation.residence_name  }}</h2>
+              <p class="text-gray-700 text-left mb-1">{{ accommodation.street_address }}</p>
+            </div>
+          </div> 
+        </div>
+        
+        <!-- Display message if no accommodations are available -->
+        <div v-else class="text-center text-gray-700">No accommodations available</div>
       </div>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        hideNavbar: true
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      accommodations: [],
+      loading: true
+    };
+  },
+  mounted() {
+    this.fetchAccommodations();
+  },
+  methods: {
+    async fetchAccommodations() {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/accommodations/?q=vanderbijlpark");
+        const data = await response.json();
+        this.accommodations = data.results.slice(0, 4);
+        console.log(this.accommodations);
+        this.loading = false;
+      } catch (error) {
+        console.error("Error fetching accommodations:", error);
+        this.loading = false;
       }
     }
   }
-  </script>
-  
-  <style scoped>
-  /* Your scoped styles here */
-  </style>
-  
+}
+</script>
+
+<style scoped>
+.content-wrapper {
+  padding-top: 10px;
+  padding-bottom: 80px;
+}
+
+@media (min-width: 768px) {
+  .content-wrapper {
+    padding-top: 10px;
+    padding-bottom: 100px;
+  }
+}
+</style>

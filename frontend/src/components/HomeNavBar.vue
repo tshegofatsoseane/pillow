@@ -1,5 +1,5 @@
 <template>
-    <nav :class="{ 'fixed top-0 w-full bg-white border-b border-indigo-200': isScrolled, 'text-black': isScrolled, 'py-1': !isScrolled, 'py-1': isScrolled }" class="fixed  text-white top-0 w-full font-bold z-20" :style="{ transition: isScrolled ? 'background-color 2s, color 0.5s' : 'none' }">
+    <nav :class="{ 'fixed text-white bg-white bg-opacity-30 backdrop-blur-lg ': isScrolled, 'text-white': isScrolled, 'py-1': !isScrolled, 'py-1': isScrolled }" class="fixed  text-white top-0 w-full font-bold z-20" :style="{ transition: isScrolled ? 'background-color 2s, color 0.5s' : 'none' }">
         <div class="container  mx-auto px-4 flex justify-between items-center" :class="{ 'my-1'  :isScrolled,  'my-6'  :!isScrolled}">
             <!-- Logo -->
  <div class="flex items-center ml-6">
@@ -17,8 +17,8 @@
 
             <!-- Navigation Links -->
             <div :class="{ 'hidden': !showMenu, 'lg:flex': showMenu }" class="lg:flex hover:border-white">
-                <router-link to="/" class="px-4 py-4 transition duration-700 ease-in-out hover:text-blue-500 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.path === '/', 'text-gray-500 border-indigo-500': isScrolled }">Home</router-link>
-                <router-link :to="{ name: 'innovation' }" class="px-4 py-4 transition duration-300 ease-in-out hover:text-blue-500 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.name === 'innovation', 'text-gray-500 border-indigo-400': isScrolled }">For Landlords</router-link>
+                <router-link to="/" class="px-4 py-4 transition duration-700 ease-in-out hover:text-blue-500 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.path === '/', 'text-black border-indigo-500': isScrolled }">Home</router-link>
+                <router-link :to="{ name: 'innovation' }" class="px-4 py-4 transition duration-300 ease-in-out hover:text-blue-500 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.name === 'innovation', 'text-black border-indigo-400': isScrolled }">For Landlords</router-link>
             </div>
 
 <!-- Action Buttons -->
@@ -26,7 +26,7 @@
     <router-link :to="{ name: 'innovation' }" 
              class="border font-semibold py-2 px-6 rounded transition duration-300 ease-in-out hover:text-indigo-500 hover:border-blue-500"
              :class="{ 'border-white': !isScrolled, 
-                        'border-black': isScrolled,
+                        'border-indigo-700': isScrolled,
                         'text-white': !isScrolled,
                         'text-indigo-500': isScrolled }">
     Login

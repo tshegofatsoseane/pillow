@@ -2,7 +2,7 @@
     <div class="hero-wrapper">
       <div class="bg-gray-700 rounded-2xl overflow-hidden mx-auto relative" style="max-width: 1565px; height: 506px; top:18px; z-index: -1;">
         <img :src="image_url" alt="Varsity Student" class="w-full h-full object-cover object-center" />
-        <div class="bg-gradient-to-r from-pink-600/90 to-indigo-700 opacity-50 absolute inset-0 z-0"></div>
+        <div class="bg-gradient-to-r from-pink-400/90 to-indigo-600 opacity-50 absolute inset-0 z-0"></div>
         <div class="text-white p-6 absolute top-0 left-0 w-full h-full z-10">
           <div class="text-center my-20 py-12 ">
             <h1 class="text-4xl lg:text-6xl  font-semibold mb-4 max-w-auto mx-auto">Welcome to {{ residence_name }}</h1>
