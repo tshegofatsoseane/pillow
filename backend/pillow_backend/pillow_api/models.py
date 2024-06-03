@@ -14,4 +14,4 @@ class Accommodation(models.Model):
         return self.residence_name
 
     class Meta:
-        db_table = 'Accommodation'
+        db_table = 'Accommodations'

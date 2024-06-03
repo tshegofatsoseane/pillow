@@ -1,5 +1,5 @@
 <template>
-    <nav :class="{ 'fixed text-white bg-white bg-opacity-30 backdrop-blur-lg ': isScrolled, 'text-white': isScrolled, 'py-1': !isScrolled, 'py-1': isScrolled }" class="fixed  text-white top-0 w-full font-bold z-20" :style="{ transition: isScrolled ? 'background-color 2s, color 0.5s' : 'none' }">
+    <nav :class="{ 'fixed text-white bg-white bg-opacity-30 backdrop-blur-lg shadow-md': isScrolled, 'text-white': isScrolled, 'py-1': !isScrolled, 'py-1': isScrolled }" class="fixed  text-white top-0 w-full font-bold z-20" :style="{ transition: isScrolled ? 'background-color 2s, color 0.5s' : 'none' }">
         <div class="container  mx-auto px-4 flex justify-between items-center" :class="{ 'my-1'  :isScrolled,  'my-6'  :!isScrolled}">
             <!-- Logo -->
  <div class="flex items-center ml-6">

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Loop through searchResults array and display each search result -->
-    <div v-for="result in paginatedResults" :key="result.id" class="max-w-5xl mx-auto flex flex-col lg:flex-row px-4 py-4">
+    <div v-for="result in paginatedResults" :key="result.id" class="max-w-5xl mx-auto flex flex-col border lg:flex-row px-4 py-4 ">
       <!-- Actual Content -->
       <!-- Image -->
       <img :src="result.image_url" alt="Street View Image" class="object-cover h-64 lg:h-auto lg:w-60 rounded-2xl mb-4 lg:mb-0 lg:mr-4">
@@ -19,15 +19,15 @@
             <span v-for="tag in result.tags" :key="tag.id" class="inline-block px-3 py-1 text-sm font-semibold text-white bg-indigo-500 rounded-full">{{ tag.name }}</span>
           </div>
           <!-- Title -->
-          <div class="mb-4 text-left ">
+          <div class="mb-4 text-left "> <!-- Added text-left class -->
             <h2 class="text-2xl font-bold text-black hover:text-gray-600 dark:hover:text-gray-200 hover:underline cursor-pointer">{{ result.residence_name }}</h2>
           </div>
           <!-- Description -->
-          <div class="mb-4 text-left ">
+          <div class="mb-4 text-left "> <!-- Added text-left class -->
             <h1 class="mt-2 font-bold text-black">{{ result.street_address }}</h1>
           </div>
           <!-- Nearest campus -->
-          <div class="mb-4 text-left pb-6">
+          <div class="mb-4 text-left pb-6"> <!-- Added text-left class -->
             <p class="mt-2 font-bold text-black"> Nearest campus: {{ result.nearest_campus }}</p>
           </div>
           <div class="w-1/4 md:w-full border-t border-gray-300"></div>
@@ -42,12 +42,6 @@
       </div>
     </div>
 
-    <!-- Pagination -->
-    <div class="flex justify-center mt-4">
-      <button @click="previousPage" :disabled="currentPage === 1" class="pagination-button">Previous</button>
-      <span>{{ currentPage }} / {{ totalPages }}</span>
-      <button @click="nextPage" :disabled="currentPage === totalPages" class="pagination-button">Next</button>
-    </div>
   </div>
 </template>
 
