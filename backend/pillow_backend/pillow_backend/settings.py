@@ -11,12 +11,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
-
-
 import os
 
-GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY') 
+# GOOGLE_MAPS_API_KEY = os.environ('GOOGLE_MAPS_API_KEY') 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,9 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'decouple',
     'rest_framework',
-    'pillow_api',
     'corsheaders',
-    'users',
+    'landlord.apps.LandlordConfig',
+    'property.apps.PropertyConfig',
 ]
 
 MIDDLEWARE = [
@@ -95,14 +92,11 @@ WSGI_APPLICATION = 'pillow_backend.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 # Database Configuration
 
+# Let us stick with SQLite3 for now
 DATABASES = {
     'default': {
-        'ENGINE': config('DB_ENGINE'),
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.pillow'
     }
 }
 
