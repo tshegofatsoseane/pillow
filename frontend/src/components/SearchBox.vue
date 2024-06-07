@@ -1,16 +1,16 @@
 <template>
   <div class="search-box-wrapper py-1" style="margin-top: -180px;">
-
     <div class="inset-0 bg-white bg-opacity-40 backdrop-blur-xl  rounded-xl shadow-md p-8 md:p-12 md:max-w-xl mx-auto mb-16 md:mt-20"  style="margin-top: -30px;">
       <h2 class="text-gray-700 lg:text-2xl mb-8 md:mb-12 mx-auto font-medium text-center">Search for residences</h2>
       
+
+
       <!-- Location Button -->
       <div class="flex items-center justify-center mb-4 md:mb-6"> 
         <button @click="submit" class="location-button p-3 md:p-4 rounded-xl bg-white border border-gray-300 hover:bg-white flex items-center justify-center">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 md:h-10 md:w-10 text-indigo-500" viewBox="0 0 20 20" fill="currentColor">
             <path fill-rule="evenodd" d="M10 2a5 5 0 00-5 5c0 3.866 5 10 5 10s5-6.134 5-10a5 5 0 00-5-5zm0 7a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
           </svg>
-        
         </button>
       </div>
 
@@ -21,11 +21,21 @@
         <div class="w-1/4 md:w-1/5 border-t border-gray-300"></div>
       </div>
 
+            <!-- University Filter Dropdown -->
+            <div class="mb-4 md:mb-6">
+        <select v-model="selectedUniversity" class="university-select p-3 md:p-4 rounded-xl bg-white border border-gray-300 w-full">
+          <option disabled value="">Select a university</option>
+          <option value="NWU">NWU</option>
+          <option value="UFS">UFS</option>
+          <option value="UJ">UJ</option>
+          <option value="WITS">WITS</option>
+        </select>
+      </div>
+
       <!-- Search Input -->
       <div class="mb-4 md:mb-6">
         <input v-model="searchQuery" type="text" class="search-input p-3 md:p-4" placeholder="Enter your search...">
-        <span class="search-icon">
-        </span>
+        <span class="search-icon"></span>
       </div>
 
       <!-- Loading Animation -->
@@ -39,7 +49,6 @@
       </button>
     </div>
     <h1 hidden class="font-semibold">Showing results for "{{ searchQuery }}"</h1>
-    
   </div>
 </template>
 
@@ -56,6 +65,7 @@ export default {
     return {
       loading: false,
       searchQuery: '',
+      selectedUniversity: '', // Add a property to store the selected university
       searchResults: [] // Add a property to store search results
     };
   },
@@ -65,7 +75,8 @@ export default {
       try {
         const response = await axios.get('http://127.0.0.1:8000/api/accommodations/', {
           params: {
-            q: this.searchQuery
+            q: this.searchQuery,
+            university: this.selectedUniversity // Include the selected university in the request parameters
           }
         });
         this.searchResults = response.data; // Assign response data to searchResults property
@@ -74,7 +85,7 @@ export default {
         window.scrollTo({
           top: 850,
           behavior: 'smooth'
-        });
+       });
       } catch (error) {
         console.error('Error fetching search results:', error);
       } finally {
@@ -85,9 +96,20 @@ export default {
 }
 </script>
 
-
-
 <style scoped>
+.university-select {
+  padding: 0.75rem 1rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 0.5rem;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.university-select:focus {
+  outline: none;
+  border-color: #9CA3AF;
+}
+
 .search-input {
   padding: 0.75rem 1rem;
   border: 1px solid #E5E7EB;
@@ -175,5 +197,4 @@ export default {
     margin-top: -100px; /* Adjust as needed */
   }
 }
-
 </style>
