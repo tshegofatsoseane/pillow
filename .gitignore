@@ -7,6 +7,15 @@ node_modules
 .env.local
 .env.*.local
 
+env.local
+env.*.local
+
+backend/pillow_backend/.env 
+
+**/.env
+
+env
+
 # Log files
 npm-debug.log*
 yarn-debug.log*

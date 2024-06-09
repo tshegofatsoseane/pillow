@@ -12,10 +12,32 @@
       <SearchResults v-if="searchResultsFromSearchBox.length" :searchResults="searchResultsFromSearchBox" />
     </div>
 
-    <!-- Pass only the results array as the accommodations prop -->
-    <FeaturedResidancesMaf :accommodations="fetchedAccommodations.results" />
-    <FeaturedResidancesPotch />
-    <FeaturedResidancesVaal />
+    <!-- Tabs for accommodations -->
+    <div class="tabs mt-8">
+      <ul class="rounded-md bg-gradient-to-r from-indigo-200 to-indigo-500 inline-flex justify-center space-x-8 px-4 py-2">
+        <li v-for="tab in tabs" :key="tab.id" :class="{ 'active-tab': activeTab === tab.id }" @click="activeTab = tab.id" class="tab">
+          <a href="#" class="tab-link">{{ tab.label }}</a>
+        </li>
+      </ul>
+      <div v-if="activeTab === 'all'" class="tab-content">
+
+      </div>
+      <div v-if="activeTab === 'nwu'" class="tab-content">
+        <!-- Display NWU related accommodations -->
+        <FeaturedResidancesMaf :accommodations="fetchedAccommodations.results.filter(accommodation => accommodation.university === 'NWU')" />
+        <FeaturedResidancesPotch />
+        <FeaturedResidancesVaal />
+      </div>
+      <div v-if="activeTab === 'uj'" class="tab-content">
+        <!-- Display UJ related accommodations -->
+      </div>
+      <div v-if="activeTab === 'ufs'" class="tab-content">
+        <!-- Display UFS related accommodations -->
+      </div>
+      <div v-if="activeTab === 'wits'" class="tab-content">
+        <!-- Display WITS related accommodations -->
+      </div>
+    </div>
 
     <!-- Display loader and overlay based on loading state -->
     <div v-if="loading" class="loading-overlay">
@@ -33,52 +55,56 @@ import SearchResults from '@/components/SearchResults.vue'
 import SearchBox from '@/components/SearchBox.vue'
 import HomeNavBar from '@/components/HomeNavBar.vue'
 import DetailBox from '@/components/DetailBox.vue'
+import TestTabs from '@/components/TestTabs.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    DetailBox, HomeNavBar, Hero, FeaturedResidancesMaf, SearchBox, FeaturedResidancesPotch, FeaturedResidancesVaal, SearchResults
+    TestTabs, DetailBox, HomeNavBar, Hero, FeaturedResidancesMaf, SearchBox, FeaturedResidancesPotch, FeaturedResidancesVaal, SearchResults
   },
   data() {
     return {
       searchResultsFromSearchBox: [],
       fetchedAccommodations: { results: [] },
-      loading: false // Ensure that loading is initially set to false
+      loading: false,
+      activeTab: 'all',
+      tabs: [
+        { id: 'all', label: 'All' },
+        { id: 'nwu', label: 'NWU' },
+        { id: 'uj', label: 'UJ' },
+        { id: 'ufs', label: 'UFS' },
+        { id: 'wits', label: 'WITS' }
+      ]
     };
   },
   mounted() {
-    // Fetch accommodations data when the component is mounted
     this.fetchAccommodations();
   },
   methods: {
     async fetchAccommodations() {
       try {
-        this.loading = true; // Set loading to true before fetching data
+        this.loading = true;
         const response = await fetch("http://127.0.0.1:8000/api/accommodations/?q=mafikeng");
         const data = await response.json();
         this.fetchedAccommodations = data;
-        console.log(this.fetchAccommodations);
       } catch (error) {
         console.error("Error fetching accommodations:", error);
       } finally {
-        this.loading = false; // Set loading to false after fetching data
+        this.loading = false;
       }
     },
     async updateSearchResults(searchResults) {
       if (searchResults && searchResults.results) {
         const resultsArray = searchResults.results;
-        // Add searchQuery property to each result object
         resultsArray.forEach(result => {
           result.searchQuery = this.searchQuery;
         });
         this.searchResultsFromSearchBox = resultsArray;
-        console.log('Search results updated:', this.searchResultsFromSearchBox);
       } else {
         console.error('Results array not found in searchResults:', searchResults);
       }
     },
     handleSearchLoading(loading) {
-      // Update loading state based on the event emitted from SearchBox component
       this.loading = loading;
     }
   }
@@ -100,8 +126,8 @@ export default {
 }
 
 .loader {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
+  border: 10px solid #f3f3f3;
+  border-top: 10px solid indigo;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -111,5 +137,33 @@ export default {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Custom styles for the tabs */
+.tabs ul {
+  border-radius: 30px;
+}
+
+.tab {
+  @apply transition duration-300 ease-in-out cursor-pointer relative;
+}
+
+.tab-link {
+  @apply block rounded-full px-6 py-3 text-lg font-medium leading-tight text-white focus:outline-none relative z-10 overflow-hidden;
+  transition: transform 0.3s ease;
+}
+
+.tab-link:hover {
+  transform: translateY(-3px);
+}
+
+.active-tab .tab-link {
+  background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+}
+
+@media screen and (max-width: 640px) {
+  .tab-link {
+    @apply px-4 py-2 text-base;
+  }
 }
 </style>
