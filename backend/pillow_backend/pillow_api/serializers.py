@@ -55,6 +55,6 @@ class AccommodationSerializer(serializers.ModelSerializer):
                 encoded_address = f"{lat},{lng}"
                 return f"https://www.google.com/maps/embed/v1/streetview?key={settings.GOOGLE_MAPS_API_KEY}&location={encoded_address}"
 
-    class Meta:  # Adding Meta class
+    class Meta: 
         model = Accommodation
         fields = '__all__'
