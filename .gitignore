@@ -12,6 +12,7 @@ env.*.local
 
 backend/pillow_backend/.env 
 
+**/.env
 
 env
 
