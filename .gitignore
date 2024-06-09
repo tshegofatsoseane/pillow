@@ -10,6 +10,9 @@ node_modules
 env.local
 env.*.local
 
+backend/pillow_backend/.env 
+
+
 env
 
 # Log files
