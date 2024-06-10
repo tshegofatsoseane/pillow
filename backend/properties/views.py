@@ -12,6 +12,15 @@ from rest_framework.exceptions import AuthenticationFailed
 
 
 class UserAuth(APIView):
+    """
+    Authenticates the user based on the provided JWT token.
+
+    Raises:
+        AuthenticationFailed: If the token is missing, expired, or invalid.
+
+    Returns:
+        Landlord: The authenticated landlord object.
+    """
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
@@ -30,7 +39,17 @@ class UserAuth(APIView):
 
         return landlord
 
+
 class RegisterView(APIView):
+    """
+    Registers a new property.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        Response: The HTTP response object.
+    """
     def post(self, request):
         landlord = UserAuth.get(self, request)
         
@@ -45,6 +64,15 @@ class RegisterView(APIView):
         
 
 class PropertyListView(APIView):
+    """
+    Retrieves a list of all properties.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        Response: The HTTP response object containing the serialized property data.
+    """
     def get(self, request):
         properties = Property.objects.all()
         serializer = PropertySerializer(properties, many=True)
@@ -53,6 +81,16 @@ class PropertyListView(APIView):
     
 
 class PropertyUpdateView(APIView):
+    """
+    Updates a specific property.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the property to be updated.
+
+    Returns:
+        Response: The HTTP response object.
+    """
     def put(self, request, pk):
         landlord = UserAuth.get(self, request)
         
@@ -64,7 +102,7 @@ class PropertyUpdateView(APIView):
             return Response({
                 "error": "Property not found",
                 "details": "May not have permissions to update"
-            }, staus=status.HTTP_404_NOT_FOUND)
+            }, status=status.HTTP_404_NOT_FOUND)
         
         serializer = PropertySerializer(property_instance, data=request.data, partial=True)
         if serializer.is_valid():
@@ -74,6 +112,16 @@ class PropertyUpdateView(APIView):
     
     
 class PropertyDeleteView(APIView):
+    """
+    Deletes a specific property.
+
+    Args:
+        request: The HTTP request object.
+        pk: The primary key of the property to be deleted.
+
+    Returns:
+        Response: The HTTP response object.
+    """
     def delete(self, request, pk):
         landlord = UserAuth.get(self, request)
         
