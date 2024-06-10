@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 
+
 # GOOGLE_MAPS_API_KEY = os.environ('GOOGLE_MAPS_API_KEY') 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,18 +36,17 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'decouple',
-    'corsheaders',
-    'crispy_forms',
-    'rest_framework',
-    'crispy_bootstrap4',
-    'landlord.apps.LandlordConfig',
-    'property.apps.PropertyConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'landlords',
+    'properties',
+    'corsheaders',
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +64,9 @@ ROOT_URLCONF = 'pillow_backend.urls'
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CORS_ALLOW_CREDENTIALS = True
+
+APPEND_SLASH = False
 
 TEMPLATES = [
     {
@@ -85,6 +88,7 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 
@@ -148,4 +152,4 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+AUTH_USER_MODEL = 'landlords.Landlord'
