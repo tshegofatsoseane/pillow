@@ -1,8 +1,6 @@
-# serializers.py
-import googlemaps
-from django.conf import settings
 from rest_framework import serializers
 from .models import Accommodation
+from utils.google_maps import get_image_url, get_map_url, get_directions_url, get_streetview_url
 
 class AccommodationSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
@@ -11,49 +9,16 @@ class AccommodationSerializer(serializers.ModelSerializer):
     streetview_url = serializers.SerializerMethodField()
     
     def get_image_url(self, obj):
-        gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
-        geocode_result = gmaps.geocode(obj.street_address)
-        if geocode_result:
-            location = geocode_result[0].get('geometry', {}).get('location')
-            if location:
-                lat = location.get('lat')
-                lng = location.get('lng')
-                return f"https://maps.googleapis.com/maps/api/streetview?size=400x300&location={lat},{lng}&key={settings.GOOGLE_MAPS_API_KEY}"
-        return None
+        return get_image_url(obj.street_address)
 
-    def get_map_url(self, obj):  # Corrected method name
-        gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
-        geocode_result = gmaps.geocode(obj.street_address)
-        if geocode_result:
-            location = geocode_result[0].get('geometry', {}).get('location')
-            if location:
-                lat = location.get('lat')
-                lng = location.get('lng')
-                return f"https://www.google.com/maps/embed/v1/place?key={settings.GOOGLE_MAPS_API_KEY}&q={lat},{lng}"
-        return None      
+    def get_map_url(self, obj):
+        return get_map_url(obj.street_address)
 
     def get_directions_url(self, obj):
-        gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
-        geocode_result = gmaps.geocode(obj.street_address)
-        if geocode_result:
-            location = geocode_result[0].get('geometry', {}).get('location')
-            if location:
-                lat = location.get('lat')
-                lng = location.get('lng')
-                api_key = settings.GOOGLE_MAPS_API_KEY
-                return f"https://www.google.com/maps/dir/?api=1&destination={lat},{lng}&key={api_key}"
-        return None
+        return get_directions_url(obj.street_address)
     
     def get_streetview_url(self, obj):
-        gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
-        geocode_result = gmaps.geocode(obj.street_address)
-        if geocode_result:
-            location = geocode_result[0].get('geometry', {}).get('location')
-            if location:
-                lat = location.get('lat')
-                lng = location.get('lng')
-                encoded_address = f"{lat},{lng}"
-                return f"https://www.google.com/maps/embed/v1/streetview?key={settings.GOOGLE_MAPS_API_KEY}&location={encoded_address}"
+        return get_streetview_url(obj.street_address)
 
     class Meta: 
         model = Accommodation
