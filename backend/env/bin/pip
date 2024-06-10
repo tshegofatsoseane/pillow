@@ -1,4 +1,4 @@
-#!/Users/tshegofatsoseane/xpillow/backend/env/bin/python3.12
+#!/home/mojalefakodisang/pillow/backend/env/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
