@@ -1,8 +1,9 @@
 import googlemaps
 from django.conf import settings
 
+gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
+
 def get_geocode(street_address):
-    gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
     return gmaps.geocode(street_address)
 
 def get_image_url(street_address):
