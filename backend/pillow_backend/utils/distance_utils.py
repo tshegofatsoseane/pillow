@@ -4,7 +4,6 @@ from django.conf import settings
 
 gmaps = googlemaps.Client(key=settings.GOOGLE_MAPS_API_KEY)
 
-# Define the addresses for the three campuses
 CAMPUS_ADDRESSES = {
     'Mafikeng': 'North West University Mahikeng, Mmabatho Unit 5, Mahikeng, 2790',
     'Potchefstroom': 'NWU Potchefstroom Campus Student Centre, 2 Hoffman St, Potchefstroom, 2520',
@@ -17,7 +16,7 @@ def calculate_distance_and_time_to_campuses(street_address):
     """
     results = {}
 
-    # Get the geocode location of the accommodation
+    # get geocode location of the accommodation
     accommodation_location = get_geocode(street_address)
     
     if not accommodation_location:
@@ -26,7 +25,7 @@ def calculate_distance_and_time_to_campuses(street_address):
     accommodation_coords = accommodation_location[0].get('geometry', {}).get('location')
 
     for campus_name, campus_address in CAMPUS_ADDRESSES.items():
-        # Get the geocode location of the campus
+        # get geocode location of the campus
         campus_location = get_geocode(campus_address)
 
         if campus_location:
