@@ -4,9 +4,9 @@
     <Hero />
 
     <div>
-      <!-- Correctly use SearchBox component -->
+     
       <SearchBox @search-results-updated="updateSearchResults" @search-loading="handleSearchLoading" />
-      <!-- Move the "Showing results for" heading inside the div -->
+
       <h1 v-if="searchResultsFromSearchBox.length" class="font-semibold">Showing results for "{{ searchResultsFromSearchBox[0]?.searchQuery }}"</h1>
       <!-- Display SearchResults component only if there are search results -->
       <SearchResults v-if="searchResultsFromSearchBox.length" :searchResults="searchResultsFromSearchBox" />
@@ -19,17 +19,22 @@
           <a href="#" class="tab-link">{{ tab.label }}</a>
         </li>
       </ul>
-      <div v-if="activeTab === 'all'" class="tab-content">
+         <!-- Decorative line separator -->
+           <div class="separator my-8"></div>
 
+      <div v-if="activeTab === 'all'" class="tab-content">
+        <NWUResidances />
+        <UJResidances />
       </div>
       <div v-if="activeTab === 'nwu'" class="tab-content">
         <!-- Display NWU related accommodations -->
         <FeaturedResidancesMaf :accommodations="fetchedAccommodations.results.filter(accommodation => accommodation.university === 'NWU')" />
         <FeaturedResidancesPotch />
-        <FeaturedResidancesVaal />
+        <FeaturedResidancesVaal /> 
       </div>
       <div v-if="activeTab === 'uj'" class="tab-content">
         <!-- Display UJ related accommodations -->
+        <UJResidances :accommodations="fetchedAccommodations.results.filter(accommodation => accommodation.university === 'UJ')" />
       </div>
       <div v-if="activeTab === 'ufs'" class="tab-content">
         <!-- Display UFS related accommodations -->
@@ -37,7 +42,10 @@
       <div v-if="activeTab === 'wits'" class="tab-content">
         <!-- Display WITS related accommodations -->
       </div>
+      
     </div>
+
+
 
     <!-- Display loader and overlay based on loading state -->
     <div v-if="loading" class="loading-overlay">
@@ -51,6 +59,9 @@ import Hero from '@/components/Hero.vue'
 import FeaturedResidancesMaf from '@/components/FeaturedResidancesMaf.vue'
 import FeaturedResidancesPotch from '@/components/FeaturedResidancesPotch.vue'
 import FeaturedResidancesVaal from '@/components/FeaturedResidancesVaal.vue'
+import UJResidances from '@/components/UJResidances.vue'
+import NWUResidances from '@/components/NWUResidances.vue'
+import AllResidances from '@/components/AllResidances.vue'
 import SearchResults from '@/components/SearchResults.vue'
 import SearchBox from '@/components/SearchBox.vue'
 import HomeNavBar from '@/components/HomeNavBar.vue'
@@ -60,7 +71,7 @@ import TestTabs from '@/components/TestTabs.vue'
 export default {
   name: 'HomeView',
   components: {
-    TestTabs, DetailBox, HomeNavBar, Hero, FeaturedResidancesMaf, SearchBox, FeaturedResidancesPotch, FeaturedResidancesVaal, SearchResults
+   AllResidances, NWUResidances, UJResidances, TestTabs, DetailBox, HomeNavBar, Hero, FeaturedResidancesMaf, SearchBox, FeaturedResidancesPotch, FeaturedResidancesVaal, SearchResults
   },
   data() {
     return {
@@ -84,7 +95,7 @@ export default {
     async fetchAccommodations() {
       try {
         this.loading = true;
-        const response = await fetch("http://127.0.0.1:8000/api/accommodations/?q=mafikeng");
+        const response = await fetch("http://127.0.0.1:8000/api/accommodations/");
         const data = await response.json();
         this.fetchedAccommodations = data;
       } catch (error) {
@@ -138,6 +149,16 @@ export default {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+
+
+.separator {
+  height: 2px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  border-radius: 20px;
+  width: 1300px;
+  margin-left: 150px;
+}
+
 
 /* Custom styles for the tabs */
 .tabs ul {
