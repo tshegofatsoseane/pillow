@@ -154,3 +154,5 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'landlords.Landlord'
+
+GOOGLE_MAP_API_KEY = os.environ.get('GOOGLE_MAP_API_KEY')

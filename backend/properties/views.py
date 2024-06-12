@@ -2,6 +2,7 @@ import os
 import jwt
 from .models import Property
 from rest_framework import status
+from .utils import geocode_address
 from django.shortcuts import render
 from landlords.models import Landlord
 from rest_framework.views import APIView
