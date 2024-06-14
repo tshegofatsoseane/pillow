@@ -20,8 +20,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('landlords/', include('landlords.urls')),
-    path('properties/', include('properties.urls')),
-    path('amenities/', include('amenities.urls')),
+    path('api/landlords/', include('api.landlords.urls')),
+    path('api/students/', include('api.landlords.urls')),
+    path('api/properties/', include('api.properties.urls')),
+    path('api/amenities/', include('api.amenities.urls')),
 ]
 
