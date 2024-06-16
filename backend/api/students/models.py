@@ -6,6 +6,8 @@ class Student(AbstractUser):
     
     # Basic information
     username = None
+    first_name = ''
+    last_name = ''
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=20, null=True, blank=True)

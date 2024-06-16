@@ -48,18 +48,18 @@ class UserAuth(APIView):
 
 class RegisterView(APIView):
     """
-    This class handles the registration of a new landlord.
+    This class handles the registration of a new Student.
     """
 
     def post(self, request):
         """
-        Handles the POST request for landlord registration.
+        Handles the POST request for Student registration.
 
         Args:
             request (HttpRequest): The HTTP request object.
 
         Returns:
-            Response: The serialized landlord data.
+            Response: The serialized Student data.
 
         Raises:
             ValidationError: If the request data is invalid.
@@ -119,18 +119,18 @@ class LoginView(APIView):
 
 class StudentView(APIView):
     """
-    This class handles the retrieval of landlord data.
+    This class handles the retrieval of Student data.
     """
 
     def get(self, request):
         """
-        Handles the GET request for landlord data.
+        Handles the GET request for Student data.
 
         Args:
             request (HttpRequest): The HTTP request object.
 
         Returns:
-            Response: The serialized landlord data.
+            Response: The serialized Student data.
 
         Raises:
             AuthenticationFailed: If the request is unauthenticated or the token is invalid.
@@ -145,9 +145,9 @@ class StudentView(APIView):
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated')
 
-        student = student.objects.filter(id=payload['id']).first()
+        student = Student.objects.filter(id=payload['id']).first()
 
-        serializer = StudentSerializer(landlord)
+        serializer = StudentSerializer(student)
 
         return Response(serializer.data)
 
@@ -179,28 +179,28 @@ class LogoutView(APIView):
 
 class StudentUpdateView(APIView):
     """
-    This class handles the update of landlord data.
+    This class handles the update of Student data.
     """
 
     def put(self, request):
         """
-        Handles the PUT request for updating landlord data.
+        Handles the PUT request for updating Student data.
 
         Args:
             request (HttpRequest): The HTTP request object.
 
         Returns:
-            Response: The updated serialized landlord data.
+            Response: The updated serialized Student data.
 
         Raises:
             AuthenticationFailed: If the request is unauthenticated or the token is invalid.
-            NotFound: If the landlord is not found.
+            NotFound: If the Student is not found.
             ValidationError: If the request data is invalid.
         """
         student = UserAuth.get(self, request)
 
         try:
-            student_instance = student.objects.get(id=landlord.id)
+            student_instance = student.objects.get(id=student.id)
             if not student_instance:
                 return Response({'error': 'Permission denied'})
         except Student.DoesNotExist:

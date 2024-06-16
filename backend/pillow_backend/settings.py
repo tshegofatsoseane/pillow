@@ -104,8 +104,12 @@ WSGI_APPLICATION = 'pillow_backend.wsgi.application'
 # Let us stick with SQLite3 for now
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.pillow'
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.environ.get('DB_NAME_PILLOW'),
+        'USER': os.environ.get('DB_USER_PILLOW'),
+        'PASSWORD': os.environ.get('DB_PASS_PILLOW'),
+        'HOST': os.environ.get('DB_HOST_PILLOW'),
+        'PORT': os.environ.get('DB_PORT_PILLOW')
     }
 }
 
