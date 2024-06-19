@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <HomeNavBar />
+    <newbar />
     <Hero />
 
     <div>
@@ -14,13 +14,13 @@
 
     <!-- Tabs for accommodations -->
     <div class="tabs mt-8">
-      <ul class="rounded-md bg-gradient-to-r from-indigo-200 to-indigo-500 inline-flex justify-center space-x-8 px-4 py-2">
+      <ul class="tab-list">
         <li v-for="tab in tabs" :key="tab.id" :class="{ 'active-tab': activeTab === tab.id }" @click="activeTab = tab.id" class="tab">
           <a href="#" class="tab-link">{{ tab.label }}</a>
         </li>
       </ul>
-         <!-- Decorative line separator -->
-           <div class="separator my-8"></div>
+      <!-- Decorative line separator -->
+      <div class="separator my-8"></div>
 
       <div v-if="activeTab === 'all'" class="tab-content">
         <NWUResidances />
@@ -30,7 +30,7 @@
         <!-- Display NWU related accommodations -->
         <FeaturedResidancesMaf :accommodations="fetchedAccommodations.results.filter(accommodation => accommodation.university === 'NWU')" />
         <FeaturedResidancesPotch />
-        <FeaturedResidancesVaal /> 
+        <FeaturedResidancesVaal />
       </div>
       <div v-if="activeTab === 'uj'" class="tab-content">
         <!-- Display UJ related accommodations -->
@@ -42,15 +42,14 @@
       <div v-if="activeTab === 'wits'" class="tab-content">
         <!-- Display WITS related accommodations -->
       </div>
-      
     </div>
 
 
 
-    <!-- Display loader and overlay based on loading state -->
+    <!-- Display loader and overlay based on loading state 
     <div v-if="loading" class="loading-overlay">
       <div class="loader"></div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -67,11 +66,12 @@ import SearchBox from '@/components/SearchBox.vue'
 import HomeNavBar from '@/components/HomeNavBar.vue'
 import DetailBox from '@/components/DetailBox.vue'
 import TestTabs from '@/components/TestTabs.vue'
+import newbar from '@/components/newbar.vue'
 
 export default {
   name: 'HomeView',
   components: {
-   AllResidances, NWUResidances, UJResidances, TestTabs, DetailBox, HomeNavBar, Hero, FeaturedResidancesMaf, SearchBox, FeaturedResidancesPotch, FeaturedResidancesVaal, SearchResults
+   AllResidances, newbar, NWUResidances, UJResidances, TestTabs, DetailBox, HomeNavBar, Hero, FeaturedResidancesMaf, SearchBox, FeaturedResidancesPotch, FeaturedResidancesVaal, SearchResults
   },
   data() {
     return {
@@ -129,7 +129,7 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 200%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -143,6 +143,7 @@ export default {
   width: 20px;
   height: 20px;
   animation: spin 1s linear infinite;
+  margin-top: -1000px ;
 }
 
 @keyframes spin {
@@ -153,7 +154,7 @@ export default {
 
 .separator {
   height: 2px;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  background: whitesmoke;
   border-radius: 20px;
   width: 1300px;
   margin-left: 150px;
@@ -161,30 +162,53 @@ export default {
 
 
 /* Custom styles for the tabs */
-.tabs ul {
-  border-radius: 30px;
+.tab-list {
+  display: flex;
+  gap: 16px;
+  padding: 10px;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
+
 .tab {
-  @apply transition duration-300 ease-in-out cursor-pointer relative;
+  list-style: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 .tab-link {
-  @apply block rounded-full px-6 py-3 text-lg font-medium leading-tight text-white focus:outline-none relative z-10 overflow-hidden;
-  transition: transform 0.3s ease;
+  display: block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #374151;
+  text-decoration: none;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-.tab-link:hover {
+.tab:hover {
   transform: translateY(-3px);
 }
 
+.tab-link:hover {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
 .active-tab .tab-link {
-  background: linear-gradient(120deg, #6a11cb 0%, #2575fc 100%);
+  background-color: #6366f1;
+  color: #ffffff;
 }
 
 @media screen and (max-width: 640px) {
   .tab-link {
-    @apply px-4 py-2 text-base;
+    padding: 8px 16px;
+    font-size: 14px;
   }
 }
 </style>

@@ -1,17 +1,19 @@
 <template >
-
+<div>
 <router-view/>
 <Footer />
+</div>
 </template>
 
 <script>
 import HomeNavBar from './components/HomeNavBar.vue'
 import Hero from './components/Hero.vue'
 import Footer from './components/Footer.vue'
+import newbar from './components/newbar.vue'
 
 
 export default {
-  components: { HomeNavBar, Hero, Footer}
+  components: { HomeNavBar, newbar, Hero, Footer}
 }
 </script>
 

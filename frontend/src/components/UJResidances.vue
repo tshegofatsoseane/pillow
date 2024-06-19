@@ -238,7 +238,7 @@ export default {
 
 .separator {
   height: 2px;
-  background: linear-gradient(to right, #6a11cb, #2575fc);
+  background: whitesmoke;
   border-radius: 50px;
 }
 
