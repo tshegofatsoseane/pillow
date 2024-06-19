@@ -23,16 +23,16 @@
           </div>
 
           <div class="searchbox">
-            <!-- Search Input -->
-            <div v-if="showSearchInput" class="relative flex-grow mb-4">
+            <!-- Search Form -->
+            <form @submit.prevent="handleSearch" class="relative flex-grow mb-4" v-if="showSearchInput">
               <input v-model="searchQuery" type="text" class="search-input" placeholder="Enter your search...">
-              <span class="search-icon">
+              <button type="submit" class="search-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="11" cy="11" r="8"></circle>
                   <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                 </svg>
-              </span>
-            </div>
+              </button>
+            </form>
           </div>
         </ul>
 
@@ -65,19 +65,19 @@ export default {
     handleScroll() {
       this.isScrolled = window.scrollY > 0;
 
-      // Calculate the scroll position to trigger showing the search input
+      // calculate scroll position to trigger showing the search input
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
       const fullHeight = document.body.scrollHeight;
 
-      // Example: show search input when scroll is in the middle 50% of the page
-      const middleScrollPosition = (fullHeight - windowHeight) / 5;
+     //show search input when scroll is in the middle 50% of the page 
+      const middleScrollPosition = (fullHeight - windowHeight) / 5.5;
 
       this.showSearchInput = scrollPosition >= middleScrollPosition;
     },
     handleSearch() {
       console.log('Search query:', this.searchQuery);
-      // Add your search handling logic here
+
     }
   }
 };
@@ -171,7 +171,10 @@ export default {
   top: 50%;
   right: 1rem;
   transform: translateY(-50%);
-  pointer-events: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .icon-search {

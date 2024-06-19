@@ -3,7 +3,7 @@
     <div class="container mx-auto max-w-screen-xl ">
 
       <div class="flex justify-between items-center mb-8">
-        <h1 class="text-4xl font-semibold text-gray-800">
+        <h1 class="text-2xl font-semibold text-gray-500">
           Featured Accommodations near Vanderbijlpark Campus
         </h1>
         <div>

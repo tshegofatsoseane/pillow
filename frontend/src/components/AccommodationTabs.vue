@@ -1,6 +1,15 @@
 <template>
+    
+<div>
+
+    <h1 class="text-4xl font-semibold text-gray-500  mt-16">
+           Popular Universities in South Africa
+    </h1>
+
+
+
     <div class="tabs mt-8">
-      <ul class="tab-list">
+      <ul class="tab-list  mt-8">
         <li
           v-for="tab in tabs"
           :key="tab.id"
@@ -39,6 +48,7 @@
         <!-- Display WITS related accommodations -->
       </div>
     </div>
+</div>
   </template>
   
   <script>
