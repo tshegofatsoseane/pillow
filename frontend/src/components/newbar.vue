@@ -1,45 +1,58 @@
 <template>
   <div>
-  <nav
-    id="nav-bar"
-    :class="['nav', isScrolled ? 'nav-bar-scrolled' : 'nav-bar-top']"
-    @scroll="handleScroll"
-   >
-    <div class="wrapper flex justify-between items-center z-50">
-            <!-- Logo -->
-  <div class="flex items-center ml-6">
-  <img src="@/assets/logo.png" alt="Pillow Logo" class="h-8 w-auto mr-2">
-  <div class="text-2xl font-bold border-white rounded-full " :class="{ 'text-indigo-500': isScrolled }">Pillow</div>
-</div>
-      <input type="checkbox" id="menu-toggle" class="hidden">
-      <label for="menu-toggle" class="label-toggle hamburger"></label>
+    <nav
+      id="nav-bar"
+      :class="['nav', isScrolled ? 'nav-bar-scrolled' : 'nav-bar-top']"
+      @scroll="handleScroll"
+    >
+      <div class="wrapper flex justify-between items-center z-50">
+        <!-- Logo -->
+        <div class="flex items-center ml-6">
+          <img src="@/assets/logo.png" alt="Pillow Logo" class="h-8 w-auto mr-2">
+          <div class="text-2xl font-bold border-white rounded-full " :class="{ 'text-indigo-500': isScrolled }">Pillow</div>
+        </div>
 
-      <ul class="menu-list flex justify-around items-center">
-            <!-- Navigation Links -->
-            <div :class="{ 'hidden': !showMenu, 'lg:flex': showMenu }" class="lg:flex hover:border-white">
-                <router-link to="/" class=" font-semibold px-4 py-4 transition duration-700 ease-in-out hover:text-indigo-700 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.path === '/', 'text-black border-indigo-500': isScrolled }">Home</router-link>
-                <router-link :to="{ name: 'innovation' }" class=" font-semibold px-4 py-4 transition duration-300 ease-in-out hover:text-indigo-700 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.name === 'innovation', 'text-black border-indigo-400': isScrolled }">For Landlords</router-link>
+        <input type="checkbox" id="menu-toggle" class="hidden">
+        <label for="menu-toggle" class="label-toggle hamburger"></label>
+
+        <ul class="menu-list flex justify-around items-center">
+          <!-- Navigation Links -->
+          <div :class="{ 'hidden': !showMenu, 'lg:flex': showMenu }" class="lg:flex hover:border-white">
+            <router-link to="/" class="font-semibold px-4 py-4 transition duration-700 ease-in-out hover:text-indigo-700 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.path === '/', 'text-black border-indigo-500': isScrolled }">Home</router-link>
+            <router-link :to="{ name: 'innovation' }" class="font-semibold px-4 py-4 transition duration-300 ease-in-out hover:text-indigo-700 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.name === 'innovation', 'text-black border-indigo-400': isScrolled }">For Landlords</router-link>
+          </div>
+
+          <div class="searchbox">
+            <!-- Search Input -->
+            <div v-if="showSearchInput" class="relative flex-grow mb-4">
+              <input v-model="searchQuery" type="text" class="search-input" placeholder="Enter your search...">
+              <span class="search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </span>
             </div>
+          </div>
+        </ul>
 
-      </ul>
-
-      <!-- Action Buttons -->
-<div class="mr-12 flex items-center space-x-4"> 
-    <router-link :to="{ name: 'innovation' }" class="border font-semibold py-2 px-6 rounded transition duration-300 ease-in-out hover:text-indigo-500 hover:border-indigo-900">Login</router-link>
-<router-link :to="{ name: 'signup' }"  class="bg-gradient-to-r from-indigo-600/90 to-pink-800/50 hover:bg-indigo-600/60 text-white font-semibold py-2 px-6 rounded transition duration-300 ease-in-out">Signup</router-link>
-</div>
-  
-    </div>
-  </nav>
- 
-</div>
+        <!-- Action Buttons -->
+        <div class="mr-12 flex items-center space-x-4">
+          <router-link :to="{ name: 'innovation' }" class="border font-semibold py-2 px-6 rounded transition duration-300 ease-in-out hover:text-indigo-500 hover:border-indigo-900">Login</router-link>
+          <router-link :to="{ name: 'signup' }" class="bg-gradient-to-r from-indigo-600/90 to-pink-800/50 hover:bg-indigo-600/60 text-white font-semibold py-2 px-6 rounded transition duration-300 ease-in-out">Signup</router-link>
+        </div>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      isScrolled: false
+      isScrolled: false,
+      showSearchInput: false,
+      searchQuery: ''
     };
   },
   mounted() {
@@ -51,6 +64,20 @@ export default {
   methods: {
     handleScroll() {
       this.isScrolled = window.scrollY > 0;
+
+      // Calculate the scroll position to trigger showing the search input
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const fullHeight = document.body.scrollHeight;
+
+      // Example: show search input when scroll is in the middle 50% of the page
+      const middleScrollPosition = (fullHeight - windowHeight) / 5;
+
+      this.showSearchInput = scrollPosition >= middleScrollPosition;
+    },
+    handleSearch() {
+      console.log('Search query:', this.searchQuery);
+      // Add your search handling logic here
     }
   }
 };
@@ -59,8 +86,6 @@ export default {
 <style scoped>
 @import 'https://fonts.googleapis.com/css?family=Mada:400,500';
 
-
-
 .nav {
   height: 85px;
   transition: width 0.2s ease-in-out;
@@ -68,6 +93,7 @@ export default {
   background-color: #fff;
   border-radius: 30px;
   box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .nav-bar-top {
@@ -76,7 +102,6 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   top: 60px;
-  
 }
 
 .nav-bar-scrolled {
@@ -106,7 +131,6 @@ export default {
   padding: 0;
 }
 
-
 .nav-link {
   letter-spacing: 0.15em;
   font-size: 1em;
@@ -114,12 +138,46 @@ export default {
   font-weight: 500;
   text-decoration: none;
 }
+
 .nav-link:hover {
   color: #e0696c;
 }
 
 .label-toggle {
   display: none;
+}
+
+.searchbox {
+  margin-top: 25px;
+  width: 50%;
+  margin-right: 100px;
+}
+
+.search-input {
+  padding: 0.75rem 1rem;
+  border: 1px solid #E5E7EB;
+  border-radius: 0.5rem;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #9CA3AF;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.icon-search {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #9CA3AF;
 }
 
 @media screen and (max-width: 961px) {
@@ -129,6 +187,7 @@ export default {
     top: 0;
   }
 }
+
 @media screen and (max-width: 768px) {
   .wrapper {
     padding: 0;
@@ -159,6 +218,7 @@ export default {
     text-align: center;
     visibility: hidden;
   }
+
   .menu-list li {
     border-top: 2px solid #e0696c;
     color: #000;
@@ -167,6 +227,7 @@ export default {
     font-size: 1.2em;
     padding: 1em 0;
   }
+
   .menu-list:last-of-type {
     border-bottom: 2px solid #e0696c;
   }
