@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-    <newbar />
+  
     <router-view />
-    <Footer />
+    
   </div>
 </template>
 
 <script>
 import HomeNavBar from './components/HomeNavBar.vue'
 import Hero from './components/Hero.vue'
-import Footer from './components/Footer.vue'
 import newbar from './components/newbar.vue'
 
 export default {
-  components: { HomeNavBar, newbar, Hero, Footer }
+  components: { HomeNavBar, newbar, Hero}
 }
 </script>
 

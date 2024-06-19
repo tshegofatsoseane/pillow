@@ -18,11 +18,12 @@
         <ul class="menu-list flex justify-around items-center">
           <!-- Navigation Links -->
           <div :class="{ 'hidden': !showMenu, 'lg:flex': showMenu }" class="lg:flex hover:border-white">
-            <router-link to="/" class="font-semibold px-4 py-4 transition duration-700 ease-in-out hover:text-indigo-700 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.path === '/', 'text-black border-indigo-500': isScrolled }">Home</router-link>
-            <router-link :to="{ name: 'innovation' }" class="font-semibold px-4 py-4 transition duration-300 ease-in-out hover:text-indigo-700 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.name === 'innovation', 'text-black border-indigo-400': isScrolled }">For Landlords</router-link>
+            <router-link to="/" class="font-semibold px-4 py-4 transition duration-700 ease-in-out text-gray-500 hover:text-indigo-700 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.path === '/', 'text-gray-500 border-indigo-500': isScrolled }">Home</router-link>
+            <router-link :to="{ name: 'landlord-dashboard' }" class="font-semibold px-4 py-4 transition duration-300 text-gray-500 ease-in-out hover:text-indigo-700 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.name === 'landlord-dashboard', 'text-gray-500 border-indigo-400': isScrolled }">For Landlords</router-link>
           </div>
+        </ul>
 
-          <div class="searchbox">
+        <div class="searchbox">
             <!-- Search Form -->
             <form @submit.prevent="handleSearch" class="relative flex-grow mb-4" v-if="showSearchInput">
               <input v-model="searchQuery" type="text" class="search-input" placeholder="Enter your search...">
@@ -34,12 +35,12 @@
               </button>
             </form>
           </div>
-        </ul>
+
 
         <!-- Action Buttons -->
         <div class="mr-12 flex items-center space-x-4">
-          <router-link :to="{ name: 'innovation' }" class="border font-semibold py-2 px-6 rounded transition duration-300 ease-in-out hover:text-indigo-500 hover:border-indigo-900">Login</router-link>
-          <router-link :to="{ name: 'signup' }" class="bg-gradient-to-r from-indigo-600/90 to-pink-800/50 hover:bg-indigo-600/60 text-white font-semibold py-2 px-6 rounded transition duration-300 ease-in-out">Signup</router-link>
+          <router-link :to="{ name: 'innovation' }" class="border border-indigo-500 text-gray-500 font-semibold py-2 px-6 rounded transition duration-300 ease-in-out hover:text-indigo-500 hover:border-indigo-800">Login</router-link>
+          <router-link :to="{ name: 'signup' }" class=" bg-indigo-600/90 to-pink-800/50 hover:bg-indigo-600/60 text-white font-semibold py-2 px-6 rounded transition duration-300 ease-in-out">Signup</router-link>
         </div>
       </div>
     </nav>
@@ -129,6 +130,7 @@ export default {
   height: 90px;
   text-decoration: none;
   padding: 0;
+
 }
 
 .nav-link {
@@ -147,15 +149,31 @@ export default {
   display: none;
 }
 
-.searchbox {
-  margin-top: 25px;
-  width: 50%;
-  margin-right: 100px;
+.nav-bar-scrolled .menu-list {
+  display: flex;
+  width: 65%;
+  justify-content: space-around;
+  align-items: center;
+  list-style: none;
+  margin: 0 auto;
+  height: 90px;
+  text-decoration: none;
+  padding: 0;
+  margin-left: 10px;
 }
+
+.nav-bar-scrolled .searchbox {
+  margin-top: 25px;
+  width: 70%;
+  margin-right: 380px;
+}
+
+
+
 
 .search-input {
   padding: 0.75rem 1rem;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #9CA3AF;
   border-radius: 0.5rem;
   width: 100%;
   transition: border-color 0.3s ease;
@@ -163,7 +181,7 @@ export default {
 
 .search-input:focus {
   outline: none;
-  border-color: #9CA3AF;
+  border-color: indigo;
 }
 
 .search-icon {
@@ -180,7 +198,7 @@ export default {
 .icon-search {
   width: 1.5rem;
   height: 1.5rem;
-  color: #9CA3AF;
+  color: #695CFE;
 }
 
 @media screen and (max-width: 961px) {
@@ -209,27 +227,6 @@ export default {
     cursor: pointer;
   }
 
-  .menu-list {
-    background-color: #fff;
-    width: 100%;
-    margin: 90px auto 0;
-    display: block;
-    height: 0;
-    list-style-type: none;
-    opacity: 0;
-    padding: 0;
-    text-align: center;
-    visibility: hidden;
-  }
-
-  .menu-list li {
-    border-top: 2px solid #e0696c;
-    color: #000;
-    display: block;
-    max-width: 100%;
-    font-size: 1.2em;
-    padding: 1em 0;
-  }
 
   .menu-list:last-of-type {
     border-bottom: 2px solid #e0696c;
@@ -251,20 +248,6 @@ export default {
     right: 20px;
   }
 
-  .hamburger {
-    background: linear-gradient(
-      to bottom,
-      #e0696c 0%,
-      #e0696c 20%,
-      transparent 20%,
-      transparent 40%,
-      #e0696c 40%,
-      #e0696c 60%,
-      transparent 60%,
-      transparent 80%,
-      #e0696c 80%,
-      #e0696c 100%
-    );
-  }
+
 }
 </style>
