@@ -7,6 +7,7 @@ import APIView from '../views/APIView.vue'
 import TechnologyView from '../views/TechnologyView.vue'
 import SignupView from '../views/SignupView.vue'
 import ResultDetailsView from '../views/ResultDetailsView.vue'
+import LandlordDashboard from '@/views/LandlordDashboard.vue';
 
 const routes = [
   {
@@ -38,6 +39,11 @@ const routes = [
     path: '/technology',
     name: 'technology',
     component: TechnologyView
+  },
+  {
+    path: '/landlord-dashboard',
+    name: 'landlord-dashboard',
+    component: LandlordDashboard
   },
   {
     path: '/signup',

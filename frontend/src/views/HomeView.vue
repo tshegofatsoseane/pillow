@@ -20,6 +20,7 @@
     <div v-if="loading" class="loading-overlay">
       <div class="loader"></div>
     </div> -->
+    <Footer />
   </div>
 </template>
 
@@ -29,6 +30,7 @@ import SearchResults from '@/components/SearchResults.vue'
 import SearchBox from '@/components/SearchBox.vue'
 import newbar from '@/components/newbar.vue'
 import AccommodationTabs from '@/components/AccommodationTabs.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
   name: 'HomeView',
@@ -38,6 +40,7 @@ export default {
     SearchBox,
     SearchResults,
     AccommodationTabs,
+    Footer, 
   },
   data() {
     return {
