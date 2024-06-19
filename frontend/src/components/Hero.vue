@@ -6,7 +6,7 @@
         <div class="text-white p-6 absolute top-0 left-0 w-full h-full z-10">
           <div class="text-center my-20 py-12 mt-8 md:mt-16">
             <h1 class="text-4xl lg:text-6xl  font-semibold mb-4 max-w-auto mx-auto">Welcome!</h1>
-            <p class="text-lg lg:text-xl mb-8 mx-auto">Discover comfortable and secure student accommodations near all NWU Campuses.</p>
+            <p class="text-lg lg:text-xl mb-8 mx-auto">Discover comfortable and secure student accommodations near some of the most popular universities in South Africa.</p>
             <router-link hidden to="/explore" class="text-xl absolute transform -translate-x-1/2 left-1/2 lg:text-2xl bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300 ease-in-out">Explore Now</router-link>
           </div>
         </div>
