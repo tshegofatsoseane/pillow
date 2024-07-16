@@ -32,6 +32,7 @@ import newbar from '@/components/newbar.vue'
 import AccommodationTabs from '@/components/AccommodationTabs.vue'
 import Footer from '@/components/Footer.vue'
 
+
 export default {
   name: 'HomeView',
   components: {
