@@ -58,7 +58,7 @@
           <h2 class="text-2xl font-semibold text-indigo-900 mb-4">Students</h2>
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <table class="w-full">
-              <thead class="bg-indigo-900 text-white">
+              <thead class="bg-indigo-500 text-white">
                 <tr>
                   <th class="py-3 px-4 text-left">Name</th>
                   <th class="py-3 px-4 text-left">Email</th>
@@ -90,7 +90,7 @@
           <h2 class="text-2xl font-semibold text-indigo-900 mb-4">Accommodations</h2>
           <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <table class="w-full">
-              <thead class="bg-indigo-900 text-white">
+              <thead class="bg-indigo-500 text-white">
                 <tr>
                   <th class="py-3 px-4 text-left">Name</th>
                   <th class="py-3 px-4 text-left">Description</th>

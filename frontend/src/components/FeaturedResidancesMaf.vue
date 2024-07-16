@@ -1,6 +1,7 @@
 <template>
-  <div class="content-wrapper">
-    <div class="container mx-auto max-w-screen-xl">
+  <div class="content-wrapper mb-12">
+    <div class="container mx-auto max-w-screen-xl mb-16">
+
       <div class="flex justify-between items-center mb-8">
         <h1 class="text-2xl font-semibold text-gray-500">
           Featured Accommodations near Mafikeng Campus
@@ -235,6 +236,11 @@ animation: pulse 1.5s infinite ease-in-out;
 }
 }
 
+.separator {
+height: 2px;
+background: whitesmoke;
+border-radius: 50px;
+}
 
 .scroll-container {
 cursor: grab;
@@ -248,11 +254,6 @@ cursor: grabbing;
 margin-top: -100px;
 }
 
-.separator {
-height: 2px;
-background: whitesmoke;
-border-radius: 50px;
-}
 
 </style>
 

@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from decouple import config
 
-
 import os
 
 GOOGLE_MAPS_API_KEY = config('GOOGLE_MAPS_API_KEY') 
@@ -33,7 +32,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+HERE_MAPS_API_KEY = 'm5XOXUwW6uKCQX2JU6dBv5zqicyi3BhAXlSW0A_6g8o'
 
+HERE_API_KEY = 'm5XOXUwW6uKCQX2JU6dBv5zqicyi3BhAXlSW0A_6g8o'
 # Application definition
 
 INSTALLED_APPS = [
