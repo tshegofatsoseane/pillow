@@ -19,41 +19,41 @@
       <div class="separator my-8"></div>
 
       <div style="margin-top: 120px;" v-if="activeTab === 'all'" class="tab-content">
-        <FeaturedAccommodations v-for="uni in universities" :key="uni" :university="uni" />
+        <FeaturedAccommodations university="NWU" campus="" />
+        <FeaturedAccommodations university="UJ" campus="" />
+        <FeaturedAccommodations university="UFS" campus="" />
+        <FeaturedAccommodations university="WITS" campus="" />
+        />
       </div>
 
       <div style="margin-top: 120px;" v-if="activeTab === 'nwu'" class="tab-content">
+        <FeaturedAccommodations university="NWU" campus="Mahikeng" />
         <FeaturedAccommodations university="NWU" campus="Potchefstroom" />
-        <FeaturedAccommodations university="NWU" campus="Mafikeng" />
-        <FeaturedAccommodations university="NWU" campus="Vanderbiltpark" />
+        <FeaturedAccommodations university="NWU" campus="Vanderbijlpark" />
       </div>
 
-      <div v-if="activeTab === 'uj'" class="tab-content">
-        <UJResidances :accommodations="filterAccommodations('UJ')" />
+      <div style="margin-top: 120px;" v-if="activeTab === 'uj'" class="tab-content">
+        <FeaturedAccommodations university="UJ" campus="Doornfontein Campus" />
+        <FeaturedAccommodations university="UJ" campus="Soweto Campus" />
       </div>
 
-      <div v-if="activeTab === 'ufs'" class="tab-content">
+      <div style="margin-top: 120px;" v-if="activeTab === 'ufs'" class="tab-content">
         <FeaturedAccommodations university="UFS" />
       </div>
 
-      <div v-if="activeTab === 'wits'" class="tab-content">
+      <div style="margin-top: 120px;" v-if="activeTab === 'wits'" class="tab-content">
         <FeaturedAccommodations university="WITS" />
       </div>
     </div>
   </div>
 </template>
 
-
 <script>
-import UJResidances from '@/components/UJResidances.vue';
-import NWUResidances from '@/components/NWUResidances.vue';
 import FeaturedAccommodations from '@/components/FeaturedAccommodations.vue';
 
 export default {
   name: 'AccommodationTabs',
   components: {
-    NWUResidances,
-    UJResidances,
     FeaturedAccommodations,
   },
   props: {
@@ -73,20 +73,30 @@ export default {
         { id: 'wits', label: 'WITS' },
       ],
       universities: ['NWU', 'UJ', 'WITS', 'UFS'],
+      accommodations: [], // Store combined accommodations here
     };
   },
   methods: {
+    async fetchAllAccommodations() {
+      const promises = this.universities.map((uni) =>
+        fetch(`http://127.0.0.1:8000/api/accommodations/?university=${uni}`).then(res => res.json())
+      );
+      const results = await Promise.all(promises);
+      this.accommodations = results.flatMap(data => data.results);
+    },
     filterAccommodations(university, campus = '') {
-      return this.fetchedAccommodations.results.filter(
+      return this.accommodations.filter(
         accommodation =>
           accommodation.university === university &&
-          (!campus || accommodation.campus === campus)
+          (!campus || accommodation.nearest_campus === campus)
       );
     },
   },
+  created() {
+    this.fetchAllAccommodations();
+  },
 };
 </script>
-
 
 <style scoped>
 .separator {

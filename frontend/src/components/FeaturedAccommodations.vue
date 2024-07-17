@@ -53,7 +53,7 @@
       <div v-else>
         <div v-if="showAll">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div v-for="(accommodation, index) in accommodations" :key="accommodation.id" class="relative">
+            <div v-for="(accommodation) in accommodations" :key="accommodation.id" class="relative">
               <div class="bg-white rounded-7xl cursor-pointer rounded-b-3xl overflow-hidden shadow-lg transition duration-300 transform hover:shadow-xl">
                 <img class="w-full h-60 object-cover rounded-t-3xl" :src="accommodation.image_url" alt="Accommodation Image" />
                 <h2 class="absolute top-2 left-2 bg-white shadow-md bg-opacity-40 text-black rounded-md w-28 h-6 flex items-center justify-center">
@@ -92,7 +92,7 @@
             @mouseup="handleMouseUp"
             @mousemove="handleMouseMove"
           >
-            <div v-for="(accommodation, index) in limitedAccommodations" :key="accommodation.id" class="inline-block relative mr-4 w-80">
+            <div v-for="(accommodation) in limitedAccommodations" :key="accommodation.id" class="inline-block relative mr-4 w-80">
               <div class="bg-white rounded-7xl cursor-pointer rounded-b-3xl overflow-hidden shadow-lg transition duration-300 transform hover:shadow-xl">
                 <img class="w-full h-60 object-cover rounded-t-3xl" :src="accommodation.image_url" alt="Accommodation Image" />
                 <h2 class="absolute top-2 left-2 bg-white shadow-md bg-opacity-40 text-black rounded-md w-28 h-6 flex items-center justify-center">
@@ -172,18 +172,41 @@ export default {
   },
   methods: {
     async fetchAccommodations() {
-      try {
-        const response = await fetch(
-          `http://127.0.0.1:8000/api/accommodations/?university=${this.university}&campus=${this.campus}`
-        );
-        const data = await response.json();
-        this.accommodations = data.results;
-        this.loading = false;
-      } catch (error) {
-        console.error("Error fetching accommodations:", error);
-        this.loading = false;
-      }
-    },
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/accommodations/?university=${this.university}&nearest_campus=${this.campus}`
+      );
+      const data = await response.json();
+      this.accommodations = data.results;
+      this.loading = false;
+    } catch (error) {
+      console.error("Error fetching accommodations:", error);
+      this.loading = false;
+    }
+  },
+  loadDataFromStorage() {
+    const storedData = localStorage.getItem(
+      `accommodations_${this.university}_${this.campus}`
+    );
+    if (storedData) {
+      this.accommodations = JSON.parse(storedData);
+      this.loading = false;
+    }
+  },
+  // other methods...
+
+
+watch: {
+  campus(newCampus) {
+    this.fetchAccommodations();
+  },
+  accommodations(newAccommodations) {
+    localStorage.setItem(
+      `accommodations_${this.university}_${this.campus}`,
+      JSON.stringify(newAccommodations)
+    );
+  },
+},
     loadDataFromStorage() {
       const storedData = localStorage.getItem(
         `accommodations_${this.university}_${this.campus}`

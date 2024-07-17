@@ -1,5 +1,3 @@
-#views.py
-
 from django.db.models import Q
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
@@ -17,16 +15,16 @@ class AccommodationSearchAPIView(ListAPIView):
 
     def get_queryset(self):
         query = self.request.query_params.get('q')
+        university = self.request.query_params.get('university')
+        nearest_campus = self.request.query_params.get('nearest_campus')
+
+        # Build the queryset
+        filters = Q(university__iexact=university)
+
+        if nearest_campus:
+            filters &= Q(nearest_campus__iexact=nearest_campus)
+
         if query:
-            # If 'q' parameter is present, filter by street address
-            return Accommodation.objects.filter(
-                Q(street_address__icontains=query)
-            ).order_by('id')
-        else:
-            # If 'q' parameter is not present, filter by university
-            university = self.request.query_params.get('university')
-            if university:
-                return Accommodation.objects.filter(university__iexact=university).order_by('id')
-            else:
-                # Return all accommodations if no parameters are provided
-                return Accommodation.objects.all().order_by('id')
+            filters &= Q(street_address__icontains=query)
+
+        return Accommodation.objects.filter(filters).order_by('id')
