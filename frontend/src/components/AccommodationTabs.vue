@@ -19,7 +19,7 @@
       <div class="separator my-8"></div>
 
       <div style="margin-top: 120px;" v-if="activeTab === 'all'" class="tab-content">
-        <FeaturedAccommodations v-for="uni in ['NWU', 'UJ', 'WITS', 'UFS']" :key="uni" :university="uni" />
+        <FeaturedAccommodations v-for="uni in universities" :key="uni" :university="uni" />
       </div>
 
       <div style="margin-top: 120px;" v-if="activeTab === 'nwu'" class="tab-content">
@@ -43,10 +43,11 @@
   </div>
 </template>
 
+
 <script>
-import UJResidances from '@/components/UJResidances.vue'
-import NWUResidances from '@/components/NWUResidances.vue'
-import FeaturedAccommodations from '@/components/FeaturedAccommodations.vue'
+import UJResidances from '@/components/UJResidances.vue';
+import NWUResidances from '@/components/NWUResidances.vue';
+import FeaturedAccommodations from '@/components/FeaturedAccommodations.vue';
 
 export default {
   name: 'AccommodationTabs',
@@ -71,6 +72,7 @@ export default {
         { id: 'ufs', label: 'UFS' },
         { id: 'wits', label: 'WITS' },
       ],
+      universities: ['NWU', 'UJ', 'WITS', 'UFS'],
     };
   },
   methods: {
@@ -84,6 +86,7 @@ export default {
   },
 };
 </script>
+
 
 <style scoped>
 .separator {
