@@ -10,37 +10,33 @@
           v-for="tab in tabs"
           :key="tab.id"
           :class="{ 'active-tab': activeTab === tab.id }"
-          @click="activeTab = tab.id"
+          @click.prevent="activeTab = tab.id"
           class="tab"
         >
-          <a href="#" class="tab-link">{{ tab.label }}</a>
+          <a class="tab-link">{{ tab.label }}</a>
         </li>
       </ul>
-      <!-- Decorative line separator -->
       <div class="separator my-8"></div>
 
-      <div v-if="activeTab === 'all'" class="tab-content">
-        <FeaturedAccommodations university="NWU" />
-        <FeaturedAccommodations university="UJ" />
-        <FeaturedAccommodations university="WITS" />
-        <FeaturedAccommodations university="UFS" />
+      <div style="margin-top: 120px;" v-if="activeTab === 'all'" class="tab-content">
+        <FeaturedAccommodations v-for="uni in ['NWU', 'UJ', 'WITS', 'UFS']" :key="uni" :university="uni" />
       </div>
-      <div v-if="activeTab === 'nwu'" class="tab-content">
-        <!-- Display NWU related accommodations -->
-        <FeaturedResidancesMaf :accommodations="filterAccommodations('NWU', 'Mafikeng')" />
-        <FeaturedResidancesPotch :accommodations="filterAccommodations('NWU', 'Potchefstroom')" />
-        <FeaturedResidancesVaal :accommodations="filterAccommodations('NWU', 'Vaal')" />
+
+      <div style="margin-top: 120px;" v-if="activeTab === 'nwu'" class="tab-content">
+        <FeaturedAccommodations university="NWU" campus="Potchefstroom" />
+        <FeaturedAccommodations university="NWU" campus="Mafikeng" />
+        <FeaturedAccommodations university="NWU" campus="Vanderbiltpark" />
       </div>
+
       <div v-if="activeTab === 'uj'" class="tab-content">
-        <!-- Display UJ related accommodations -->
         <UJResidances :accommodations="filterAccommodations('UJ')" />
       </div>
+
       <div v-if="activeTab === 'ufs'" class="tab-content">
-        <!-- Display UFS related accommodations -->
         <FeaturedAccommodations university="UFS" />
       </div>
+
       <div v-if="activeTab === 'wits'" class="tab-content">
-        <!-- Display WITS related accommodations -->
         <FeaturedAccommodations university="WITS" />
       </div>
     </div>
@@ -48,9 +44,6 @@
 </template>
 
 <script>
-import FeaturedResidancesMaf from '@/components/FeaturedResidancesMaf.vue'
-import FeaturedResidancesPotch from '@/components/FeaturedResidancesPotch.vue'
-import FeaturedResidancesVaal from '@/components/FeaturedResidancesVaal.vue'
 import UJResidances from '@/components/UJResidances.vue'
 import NWUResidances from '@/components/NWUResidances.vue'
 import FeaturedAccommodations from '@/components/FeaturedAccommodations.vue'
@@ -60,9 +53,6 @@ export default {
   components: {
     NWUResidances,
     UJResidances,
-    FeaturedResidancesMaf,
-    FeaturedResidancesPotch,
-    FeaturedResidancesVaal,
     FeaturedAccommodations,
   },
   props: {
@@ -85,13 +75,10 @@ export default {
   },
   methods: {
     filterAccommodations(university, campus = '') {
-      if (campus) {
-        return this.fetchedAccommodations.results.filter(
-          accommodation => accommodation.university === university && accommodation.campus === campus
-        );
-      }
       return this.fetchedAccommodations.results.filter(
-        accommodation => accommodation.university === university
+        accommodation =>
+          accommodation.university === university &&
+          (!campus || accommodation.campus === campus)
       );
     },
   },
@@ -103,11 +90,8 @@ export default {
   height: 2px;
   background: whitesmoke;
   border-radius: 20px;
-  width: 1300px;
-  margin-left: 150px;
+  width: 1450px;
 }
-
-/* Custom styles for the tabs */
 .tab-list {
   display: flex;
   gap: 16px;
@@ -119,13 +103,11 @@ export default {
   max-width: 600px;
   margin: 0 auto;
 }
-
 .tab {
   list-style: none;
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
-
 .tab-link {
   display: block;
   padding: 12px 24px;
@@ -135,21 +117,17 @@ export default {
   text-decoration: none;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
-
 .tab:hover {
   transform: translateY(-3px);
 }
-
 .tab-link:hover {
   background-color: #e5e7eb;
   color: #1f2937;
 }
-
 .active-tab .tab-link {
   background-color: #6366f1;
   color: #ffffff;
 }
-
 @media screen and (max-width: 640px) {
   .tab-link {
     padding: 8px 16px;
