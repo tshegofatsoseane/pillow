@@ -5,7 +5,7 @@ from .models import Accommodation
 from .serializers import AccommodationSerializer
 
 class CustomPagination(PageNumberPagination):
-    page_size = 8
+    page_size = 12
     page_size_query_param = 'page_size'
     max_page_size = 1000  # Maximum page size to prevent excessive resource usage
 

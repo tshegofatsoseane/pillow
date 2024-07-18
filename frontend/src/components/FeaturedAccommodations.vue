@@ -153,7 +153,7 @@ export default {
   },
   computed: {
     limitedAccommodations() {
-      return this.accommodations.slice(0, 8);
+      return this.accommodations.slice(0, 12);
     },
   },
   created() {
@@ -193,7 +193,7 @@ export default {
       this.loading = false;
     }
   },
-  // other methods...
+
 
 
 watch: {
