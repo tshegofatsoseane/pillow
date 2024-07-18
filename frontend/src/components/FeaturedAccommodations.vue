@@ -9,7 +9,7 @@
           <button
             v-if="!showAll"
             @click="showAll = true"
-            class="bg-indigo-600 text-white px-4 py-2 rounded-full hover:bg-indigo-700 transition duration-300"
+            class="bg-indigo-500 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition duration-300"
           >
             Show All
           </button>

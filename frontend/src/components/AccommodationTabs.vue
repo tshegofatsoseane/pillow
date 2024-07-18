@@ -27,9 +27,9 @@
       </div>
 
       <div style="margin-top: 120px;" v-if="activeTab === 'nwu'" class="tab-content">
-        <FeaturedAccommodations university="NWU" campus="Mahikeng" />
-        <FeaturedAccommodations university="NWU" campus="Potchefstroom" />
-        <FeaturedAccommodations university="NWU" campus="Vanderbijlpark" />
+        <FeaturedAccommodations university="NWU" campus="Mahikeng Campus" />
+        <FeaturedAccommodations university="NWU" campus="Potchefstroom Campus" />
+        <FeaturedAccommodations university="NWU" campus="Vanderbijlpark Campus" />
       </div>
 
       <div style="margin-top: 120px;" v-if="activeTab === 'uj'" class="tab-content">
@@ -38,7 +38,12 @@
       </div>
 
       <div style="margin-top: 120px;" v-if="activeTab === 'ufs'" class="tab-content">
-        <FeaturedAccommodations university="UFS" />
+        <FeaturedAccommodations university="UFS" campus="Qwaqwa Campus"/>
+        <FeaturedAccommodations university="UFS" campus="South Campus"/>
+        <FeaturedAccommodations university="UFS" campus="Bloemfontein Campus"/>
+
+        
+        
       </div>
 
       <div style="margin-top: 120px;" v-if="activeTab === 'wits'" class="tab-content">
