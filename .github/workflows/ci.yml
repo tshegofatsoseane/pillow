@@ -19,6 +19,7 @@ jobs:
       with:
         python-version: '3.12'
 
+
     - name: Install dependencies
       run: |
         python -m venv venv
@@ -29,3 +30,4 @@ jobs:
       run: |
         . venv/bin/activate
         python -m unittest discover -s pillow_api/tests
+
