@@ -32,9 +32,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-HERE_MAPS_API_KEY = 'm5XOXUwW6uKCQX2JU6dBv5zqicyi3BhAXlSW0A_6g8o'
-
-HERE_API_KEY = 'm5XOXUwW6uKCQX2JU6dBv5zqicyi3BhAXlSW0A_6g8o'
 # Application definition
 
 INSTALLED_APPS = [
