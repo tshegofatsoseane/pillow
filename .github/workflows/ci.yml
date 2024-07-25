@@ -2,14 +2,12 @@ name: CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,13 +17,17 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.12'  # Adjust as needed
+        python-version: '3.12'
+
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python -m venv venv
+        . venv/bin/activate
         pip install -r requirements.txt
 
     - name: Run tests
       run: |
+        . venv/bin/activate
         python -m unittest discover -s pillow_api/tests
+
