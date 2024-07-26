@@ -34,4 +34,5 @@ jobs:
     - name: Run tests
       run: |
         . venv/bin/activate
-        python -m unittest discover -s backend/pillow_api/tests
+        python -m unittest discover -s pillow_api/tests
+        
