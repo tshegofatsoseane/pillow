@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import Accommodation
-from utils.google_maps import get_image_url, get_map_url, get_directions_url, get_streetview_url
-from utils.distance_utils import calculate_distance_and_time_to_campuses
+from .utils.google_maps import get_image_url, get_map_url, get_directions_url, get_streetview_url
+from .utils.distance_utils import calculate_distance_and_time_to_campuses
 
 class AccommodationSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
