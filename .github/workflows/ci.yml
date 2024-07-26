@@ -3,13 +3,10 @@ name: CI
 on:
   push:
     branches: [main]
-    branches: [main]
   pull_request:
-    branches: [main]
     branches: [main]
 
 jobs:
-  build:
   build:
     runs-on: ubuntu-latest
 
@@ -34,12 +31,7 @@ jobs:
         pip install --upgrade pip
         pip install -r backend/requirements.txt
 
-        python -m venv venv
-        . venv/bin/activate
-        pip install -r requirements.txt
-
     - name: Run tests
       run: |
         . venv/bin/activate
-        . venv/bin/activate
-        python -m unittest discover -s pillow_api/tests
+        python -m unittest discover -s backend/pillow_api/tests
