@@ -7,9 +7,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'pillow_backend.test_settings'
 
 
-# Set a dummy API key for testing purposes
-os.environ['GOOGLE_MAPS_API_KEY'] = 'DUMMY_API_KEY'
-
 import django
 django.setup()
 
