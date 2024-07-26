@@ -1,7 +1,9 @@
 import unittest
 from unittest.mock import patch
 import os
+import sys
 
+sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'pillow_backend.test_settings'
 
 import django
