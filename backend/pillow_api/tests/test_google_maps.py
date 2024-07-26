@@ -6,6 +6,8 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'pillow_backend.test_settings'
 
+
+
 import django
 django.setup()
 

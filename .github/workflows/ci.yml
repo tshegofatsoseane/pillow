@@ -34,6 +34,7 @@ jobs:
     - name: Run tests
       env:
         PYTHONPATH: backend
+        GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
       run: |
         . venv/bin/activate
         python -m unittest discover -s backend/pillow_api/tests
