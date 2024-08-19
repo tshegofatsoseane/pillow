@@ -5,20 +5,31 @@ FROM python:3.11-slim
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# Set the working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy the requirements file into the container at /app
-COPY backend/requirements.txt /app/
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y \
+    gcc \
+    libmariadb-dev \
+    pkg-config \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy and install Python dependencies
+COPY requirements.txt /app/
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
 
-# Copy the entire project into the container
-COPY backend/ /app/
+# Set environment variable
+ENV GOOGLE_MAPS_API_KEY=AIzaSyA75_gIkupDOHd64HUstBz_vQ_VVV6C5Os
 
-# Expose port 8000 for the app
-EXPOSE 8000
+# Copy the rest of the application code
+COPY . /app/
+
+# Ensure the Python path includes the backend directory
+ENV PYTHONPATH=/app/backend
 
 # Command to run the application
-CMD ["gunicorn", "pillow_backend.wsgi:application", "--bind", "0.0.0.0:8000", "--log-file", "-"]
+CMD ["gunicorn", "backend.pillow_backend.wsgi:application", "--bind", "0.0.0.0:8000"]

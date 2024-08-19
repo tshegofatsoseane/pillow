@@ -1,0 +1,12 @@
+# docker-compose.yml
+
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - GOOGLE_MAPS_API_KEY=AIzaSyA75_gIkupDOHd64HUstBz_vQ_VVV6C5Os
+    volumes:
+      - .:/app
