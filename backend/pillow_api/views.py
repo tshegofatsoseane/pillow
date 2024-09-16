@@ -18,8 +18,11 @@ class AccommodationSearchAPIView(ListAPIView):
         university = self.request.query_params.get('university')
         nearest_campus = self.request.query_params.get('nearest_campus')
 
-        # Build the queryset
-        filters = Q(university__iexact=university)
+        # Build the queryset with flexible filtering
+        filters = Q()
+
+        if university:
+            filters &= Q(university__iexact=university)
 
         if nearest_campus:
             filters &= Q(nearest_campus__iexact=nearest_campus)
