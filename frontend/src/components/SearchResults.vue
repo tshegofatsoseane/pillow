@@ -1,63 +1,151 @@
 <template>
-  <div>
-    <!-- Loop through searchResults array and display each search result -->
-    <div v-for="result in paginatedResults" :key="result.id" class="max-w-5xl mx-auto flex flex-col border lg:flex-row px-4 py-4 ">
-      <!-- Actual Content -->
-      <!-- Image -->
-      <img :src="result.image_url" alt="Street View Image" class="object-cover h-64 lg:h-auto lg:w-60 rounded-2xl mb-4 lg:mb-0 lg:mr-4">
-      <!-- Card Container -->
-      <div class="bg-white w-full ">
-        <div class="p-6">
-          <!-- Content -->
-          <div class="flex items-center space-x-4 mb-4">
-            <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-indigo-500 rounded-full">Mafikeng</span>
-            <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-indigo-500 rounded-full">Accredited</span>
-            <span class="inline-block px-3 py-1 text-sm font-semibold text-white bg-indigo-500 rounded-full">Tag #3</span>
-          </div>
-          <div class="flex items-center space-x-4 mb-4">
-            <!-- Display tags -->
-            <span v-for="tag in result.tags" :key="tag.id" class="inline-block px-3 py-1 text-sm font-semibold text-white bg-indigo-500 rounded-full">{{ tag.name }}</span>
-          </div>
-          <!-- Title -->
-          <div class="mb-4 text-left "> <!-- Added text-left class -->
-            <h2 class="text-2xl font-bold text-black hover:text-gray-600 dark:hover:text-gray-200 hover:underline cursor-pointer">{{ result.residence_name }}</h2>
-          </div>
-          <!-- Description -->
-          <div class="mb-4 text-left "> <!-- Added text-left class -->
-            <h1 class="mt-2 font-bold text-black">{{ result.street_address }}</h1>
-          </div>
-          <!-- Nearest campus -->
-          <div class="mb-4 text-left pb-6"> <!-- Added text-left class -->
-            <p class="mt-2 font-bold text-black"> Nearest campus: {{ result.nearest_campus }}</p>
-          </div>
-          <div class="w-1/4 md:w-full border-t border-gray-300"></div>
-          <!-- Read more and Author section -->
-          <div class="flex items-center justify-between mt-4">
-            <!-- Add your router-link or other navigation logic here -->
-            <router-link :to="{ name: 'details', params: { id: result.id }, query: { residence_name: result.residence_name, image_url: result.image_url, street_address: result.street_address, nearest_campus: result.nearest_campus, cell_number: result.cell_number, email: result.email, map_url: result.map_url, directions_url: result.directions_url, streetview_url: result.streetview_url  } }" class="px-4 py-4 transition duration-300 ease-in-out text-blue-600 dark:text-blue-400 hover:underline">Details ⟶</router-link>
+  <div class="flex h-screen px-8 py-4">
+    <!-- Left Sidebar: Search Results -->
+    <div class="w-1/3 bg-gray-100 p-4 rounded-lg shadow-lg overflow-y-auto">
+      <!-- Toolbar for Search Results -->
+      <div class="mb-4 flex justify-between items-center">
+        <h2 class="text-xl font-semibold text-gray-800">Search Results</h2>
+        <button @click="clearSearch" class="text-blue-600 hover:text-blue-700 font-medium transition">
+          Clear Search
+        </button>
+      </div>
+      
+      <!-- Search Bar -->
+      <div class="mb-6">
+        <input
+          type="text"
+          placeholder="Search accommodation"
+          class="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+        />
+      </div>
 
-            <a class="font-bold text-black cursor-pointer">John Doe</a>
+      <!-- Loop through paginatedResults array and display each search result -->
+      <div
+        v-for="result in paginatedResults"
+        :key="result.id"
+        class="mb-6 p-4 border rounded-lg bg-white hover:shadow-md transition-shadow duration-300"
+        @click="selectResult(result)"
+      >
+        <!-- Image -->
+        <img
+          :src="result.image_url"
+          alt="Accommodation Image"
+          class="object-cover w-full h-48 rounded-lg mb-4 shadow-md"
+        />
+
+        <!-- Content -->
+        <div>
+          <!-- Residence Name and Address -->
+          <div class="mb-2 text-left">
+            <span class="text-lg font-semibold text-gray-800">{{ result.residence_name }}</span>
+            <div class="text-sm text-gray-600">{{ result.street_address }}</div>
+          </div>
+
+          <!-- Tags (e.g., Free EV, Lockers, Pets Allowed, Vegan) -->
+          <div class="flex flex-wrap space-x-2 mb-4">
+            <span
+              v-for="tag in result.tags"
+              :key="tag.id"
+              class="px-3 py-1 text-xs font-semibold text-white bg-indigo-500 rounded-full shadow-sm"
+            >
+              {{ tag.name }}
+            </span>
+          </div>
+
+          <!-- Details and Booking Button -->
+          <div class="flex justify-between items-center">
+            <router-link
+              :to="{
+                name: 'details',
+                params: {
+                  id: result.id,
+                  residence_name: result.residence_name,
+                  image_url: result.image_url,
+                  street_address: result.street_address,
+                  nearest_campus: result.nearest_campus
+                }
+              }"
+              class="text-blue-600 hover:text-blue-700 font-medium transition"
+            >
+              View Details ⟶
+            </router-link>
+            <button class="px-4 py-2 text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition">
+              Book Now
+            </button>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Right Side: Map Section -->
+    <div class="w-2/3 relative bg-gray-200 rounded-lg shadow-lg overflow-hidden">
+      <!-- Toolbar for Map Section -->
+      <div class="absolute top-0 left-0 right-0 p-4 flex justify-between items-center bg-white shadow-md">
+        <h2 class="text-xl font-semibold text-gray-800">Map</h2>
+        <button @click="clearMap" class="text-blue-600 hover:text-blue-700 font-medium transition">
+          Clear Map
+        </button>
+      </div>
+      
+      <!-- Map iframe -->
+      <div v-if="selectedMapUrl" class="absolute inset-0">
+        <iframe
+          :src="selectedMapUrl"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
+      </div>
+      
+      <!-- Placeholder for Map -->
+      <div v-else class="absolute inset-0 flex items-center justify-center">
+        <span class="text-gray-500 font-medium text-xl">Select a search result to view map</span>
+      </div>
+
+      <!-- Colleagues Info (Bottom Right) -->
+      <div class="absolute bottom-6 right-6 bg-white p-4 rounded-lg shadow-lg">
+        <p class="text-sm font-semibold text-gray-800">My Colleagues</p>
+        <p class="text-xs text-gray-500">{{ colleagues.total }} Total, {{ colleagues.nearby }} Nearby, {{ colleagues.online }} Online</p>
+        <div class="flex space-x-2 mt-2">
+          <img
+            v-for="colleague in colleagues.list"
+            :key="colleague.id"
+            :src="colleague.image_url"
+            class="w-8 h-8 rounded-full border-2 border-white shadow-sm"
+            alt="Colleague Avatar"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'SearchResults',
+  name: "SearchResults",
   props: {
     searchResults: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
   data() {
     return {
       currentPage: 1,
-      pageSize: 10
+      pageSize: 10,
+      colleagues: {
+        total: 25,
+        nearby: 10,
+        online: 8,
+        list: [
+          { id: 1, image_url: "https://randomuser.me/api/portraits/men/1.jpg" },
+          { id: 2, image_url: "https://randomuser.me/api/portraits/women/2.jpg" },
+          // Add more colleague images here
+        ],
+      },
+      selectedMapUrl: null, // Stores the selected map URL
     };
   },
   computed: {
@@ -68,7 +156,7 @@ export default {
       const startIndex = (this.currentPage - 1) * this.pageSize;
       const endIndex = startIndex + this.pageSize;
       return this.searchResults.slice(startIndex, endIndex);
-    }
+    },
   },
   methods: {
     nextPage() {
@@ -80,25 +168,78 @@ export default {
       if (this.currentPage > 1) {
         this.currentPage--;
       }
+    },
+    selectResult(result) {
+      this.selectedMapUrl = result.map_url;
+    },
+    clearSearch() {
+      // Clear search logic
+      this.$refs.searchInput.value = '';
+    },
+    clearMap() {
+      // Clear map logic
+      this.selectedMapUrl = null;
+    },
+  },
+  mounted() {
+    // Set the initial map URL to the first result
+    if (this.searchResults.length > 0) {
+      this.selectedMapUrl = this.searchResults[0].map_url;
     }
-  }
+  },
 };
 </script>
 
 <style scoped>
-/* Pagination Button Styles */
-.pagination-button {
-  background-color: #4B5563;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
-  margin: 0 0.5rem;
+/* Custom styles for a more modern design */
+body {
+  font-family: 'Inter', sans-serif;
 }
 
-.pagination-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.bg-gray-100 {
+  background-color: #f3f4f6;
+}
+
+.bg-gray-200 {
+  background-color: #e5e7eb;
+}
+
+.bg-blue-500 {
+  background-color: #8265f7;
+}
+
+.bg-blue-600 {
+  background-color: #8265f7;
+}
+
+.bg-green-500 {
+  background-color: #10b981;
+}
+
+.bg-green-600 {
+  background-color: #059669;
+}
+
+.text-gray-800 {
+  color: #1f2937;
+}
+
+.text-gray-500 {
+  color: #6b7280;
+}
+
+/* Hover effects */
+button:hover {
+  transform: translateY(-2px);
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Map container style */
+iframe {
+  border: 0;
 }
 </style>

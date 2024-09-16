@@ -22,9 +22,6 @@ COPY requirements.txt /app/
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt
 
-# Set environment variable
-ENV GOOGLE_MAPS_API_KEY=AIzaSyA75_gIkupDOHd64HUstBz_vQ_VVV6C5Os
-
 # Copy the rest of the application code
 COPY . /app/
 

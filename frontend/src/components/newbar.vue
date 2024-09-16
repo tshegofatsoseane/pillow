@@ -5,7 +5,7 @@
       :class="['nav', isScrolled ? 'nav-bar-scrolled' : 'nav-bar-top']"
       @scroll="handleScroll"
     >
-      <div class="wrapper flex justify-between items-center z-50">
+      <div class="wrapper flex justify-between items-center z-50 " style="margin-top: -15px;">
         <!-- Logo -->
         <div class="flex items-center ml-6">
           <img src="@/assets/logo.png" alt="Pillow Logo" class="h-8 w-auto mr-2">
@@ -15,11 +15,13 @@
         <input type="checkbox" id="menu-toggle" class="hidden">
         <label for="menu-toggle" class="label-toggle hamburger"></label>
 
-        <ul class="menu-list flex justify-around items-center">
+        <ul class="menu-list flex justify-around items-center" >
           <!-- Navigation Links -->
-          <div :class="{ 'hidden': !showMenu, 'lg:flex': showMenu }" class="lg:flex hover:border-white">
+          <div class="nav-wrapper" style="margin-top: -2px;">
+            <div :class="{ 'hidden': !showMenu, 'lg:flex': showMenu }" class="lg:flex hover:border-white">
             <router-link to="/" class="font-semibold px-4 py-4 transition duration-700 ease-in-out text-gray-500 hover:text-indigo-700 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.path === '/', 'text-gray-500 border-indigo-500': isScrolled }">Home</router-link>
             <router-link :to="{ name: 'landlord-dashboard' }" class="font-semibold px-4 py-4 transition duration-300 text-gray-500 ease-in-out hover:text-indigo-700 hover:border-blue-500" :class="{ 'border-b-2 border-blue-500': $route.name === 'landlord-dashboard', 'text-gray-500 border-indigo-400': isScrolled }">For Landlords</router-link>
+          </div>
           </div>
         </ul>
 
@@ -34,8 +36,6 @@
                 </svg>
               </button>
             </form>
-
-            
 
           </div>
 
@@ -91,7 +91,7 @@ export default {
 @import 'https://fonts.googleapis.com/css?family=Mada:400,500';
 
 .nav {
-  height: 85px;
+  height: 65px;
   transition: width 0.2s ease-in-out;
   margin-top: -15px;
   background-color: #fff;
@@ -159,19 +159,24 @@ export default {
   align-items: center;
   list-style: none;
   margin: 0 auto;
-  height: 90px;
+  height: 100px;
   text-decoration: none;
   padding: 0;
   margin-left: 10px;
+  margin-top: 25px;
 }
+
+.nav-bar-scrolled{
+height: 82px;
+}
+
+
 
 .nav-bar-scrolled .searchbox {
   margin-top: 25px;
   width: 70%;
   margin-right: 380px;
 }
-
-
 
 
 .search-input {
