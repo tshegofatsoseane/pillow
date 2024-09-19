@@ -75,7 +75,7 @@ export default {
         });
         this.$emit('search-results-updated', response.data);
         window.scrollTo({
-          top: 850,
+          top: 470,
           behavior: 'smooth'
         });
       } catch (error) {

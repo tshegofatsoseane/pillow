@@ -5,6 +5,8 @@
       :class="['nav', isScrolled ? 'nav-bar-scrolled' : 'nav-bar-top']"
       @scroll="handleScroll"
     >
+    
+    
       <div class="wrapper flex justify-between items-center z-50 " style="margin-top: -15px;">
         <!-- Logo -->
         <div class="flex items-center ml-6">
@@ -46,6 +48,7 @@
           <router-link :to="{ name: 'signup' }" class=" bg-indigo-600/90 to-pink-800/50 hover:bg-indigo-600/60 text-white font-semibold py-2 px-6 rounded transition duration-300 ease-in-out">Signup</router-link>
         </div>
       </div>
+      <div v-if="isScrolled" class="separator"></div>
     </nav>
   </div>
 </template>
@@ -75,7 +78,7 @@ export default {
       const fullHeight = document.body.scrollHeight;
 
      //show search input when scroll is in the middle 50% of the page 
-      const middleScrollPosition = (fullHeight - windowHeight) / 5.5;
+      const middleScrollPosition = (fullHeight - windowHeight) / 9;
 
       this.showSearchInput = scrollPosition >= middleScrollPosition;
     },
@@ -100,6 +103,8 @@ export default {
   z-index: 1000;
 }
 
+
+
 .nav-bar-top {
   width: 70%;
   position: absolute;
@@ -115,6 +120,18 @@ export default {
   top: 0;
   transform: translateX(-50%);
   border-radius: 1px;
+  height: 100px; /* Adjusted height when scrolled */
+  transition: height 0.3s ease-in-out; /* Smooth transition */
+  border-bottom: 1px solid #e5e7eb; /* Existing bottom border */
+  display: flex;
+  flex-direction: column;
+}
+
+.separator {
+  height: 2px;
+  background: whitesmoke;
+  border-radius: 50px;
+  margin-top: -20px;
 }
 
 .nav-logo {
@@ -166,10 +183,17 @@ export default {
   margin-top: 25px;
 }
 
-.nav-bar-scrolled{
-height: 82px;
+.nav-bar-scrolled {
+  position: fixed;
+  width: 100%;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  border-radius: 1px;
+  height: 145px; /* Increased height when scrolled */
+  transition: height 0.3s ease-in-out; /* Smooth transition */
+  border-bottom: 1px solid #e5e7eb; /* Add a light gray divider line */
 }
-
 
 
 .nav-bar-scrolled .searchbox {
