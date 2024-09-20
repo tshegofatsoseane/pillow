@@ -1,11 +1,11 @@
 <template>
   <div class="flex h-screen px-8 py-4 space-x-8" style="margin-top: 50px;">
     <!-- Left Sidebar: Search Results -->
-    <div class="w-2/2 bg-gray-100 p-4 rounded-lg shadow-lg overflow-y-auto h-screen">
+    <div class="w-2/2 bg-gray-100 p-4 rounded-lg shadow-lg overflow-y-auto h-screen mt-6" >
   <!-- Sticky Toolbar and Search Bar Container -->
-  <div  class="sticky top-0 bg-gray-100 z-10 pb-4">
+  <div class="sticky top-0 bg-gray-100 z-10 pt-2 pb-2"> 
   <!-- Toolbar for Search Results -->
-  <div class="mb-0 h-6 flex justify-between items-center">
+  <div class="h-6 flex justify-between items-center mb-1">
     <h2 class="text-xl font-semibold text-gray-800">Search Results</h2>
     <button @click="clearSearch" class="text-blue-600 hover:text-blue-700 font-medium transition">
       Clear Search
@@ -24,7 +24,7 @@
 </div>
 
 <!-- Loop through paginatedResults array and display each search result -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 " >
   <div
     v-for="result in paginatedResults"
     :key="result.id"
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Content -->
-    <div class="text-left p-1">
+    <div class="text-left p-1 ">
       <!-- Residence Name and Address -->
       <div class="mb-2">
         <h3 class="text-lg font-semibold text-gray-900 leading-tight overflow-hidden overflow-ellipsis whitespace-nowrap">
@@ -96,11 +96,8 @@
 </div>
 
 
-
-
-
     <!-- Right Side: Map Section -->
-    <section class="w-1/2 relative bg-white rounded-lg shadow-md">
+    <section class="w-1/2 relative bg-white rounded-lg shadow-md mt-6">
       <!-- Toolbar with Map Filters -->
       <div class="absolute top-0 left-0 right-0 p-4 bg-gray-50 shadow-md flex justify-between items-center">
         <div class="flex items-center space-x-4">
@@ -141,7 +138,7 @@
       </div>
 
       <!-- Colleagues Information Section -->
-      <div class="absolute bottom-6 right-6 bg-white p-4 rounded-lg shadow-md">
+      <div class="absolute bottom-20 right-6 bg-white p-4 rounded-lg shadow-md">
         <h4 class="text-sm font-semibold text-gray-800">Colleagues</h4>
         <p class="text-xs text-gray-500">{{ colleagues.total }} Total, {{ colleagues.nearby }} Nearby</p>
         <div class="mt-2 flex space-x-2">
