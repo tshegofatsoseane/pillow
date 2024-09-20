@@ -49,22 +49,11 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      isScrolled: false,
       searchQuery: '',
-      loading: false,
-      showMenu: false
+      loading: false
     };
   },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll);
-  },
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
   methods: {
-    handleScroll() {
-      this.isScrolled = window.scrollY > 0;
-    },
     async submit() {
       this.loading = true;
       try {
@@ -74,8 +63,9 @@ export default {
           }
         });
         this.$emit('search-results-updated', response.data);
+        this.$emit('search-initiated'); // Emit event to hide Hero component
         window.scrollTo({
-          top: 850,
+          top: 472,
           behavior: 'smooth'
         });
       } catch (error) {
@@ -87,6 +77,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 @import 'https://fonts.googleapis.com/css?family=Mada:400,500';

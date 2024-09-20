@@ -10,7 +10,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'pillow_backend.test_settings'
 import django
 django.setup()
 
-from pillow_api.utils.google_maps import get_geocode, get_image_url, get_map_url, get_directions_url, get_streetview_url
+from pillow_api.utils.google_maps import get_geocode, get_image_url, get_map_url, get_directions_url, get_streetview_url # type: ignore
 
 class GoogleMapsTests(unittest.TestCase):
 

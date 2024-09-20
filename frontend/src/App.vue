@@ -11,6 +11,8 @@ import HomeNavBar from './components/HomeNavBar.vue'
 import Hero from './components/Hero.vue'
 import newbar from './components/newbar.vue'
 import FeaturedAccommodations from './components/FeaturedAccommodations.vue';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+
 
 export default {
   components: { HomeNavBar, newbar, Hero, FeaturedAccommodations}
